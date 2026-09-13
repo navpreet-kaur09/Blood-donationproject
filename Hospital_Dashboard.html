@@ -1,0 +1,245 @@
+Rohit
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hospital Portal — Jeevan </title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+    <header class="navbar">
+
+        <div class="logo">
+
+            <img src="logo1.png" alt="Jeevan" class="logo-img">
+
+        </div>
+
+
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+
+
+        <label for="menu-toggle" class="hamburger">
+
+            <span></span>
+
+            <span></span>
+
+            <span></span>
+
+        </label>
+
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="find-blood.html">
+                Find Blood
+            </a>
+
+            <a href="donate.html">
+                Donate Blood
+            </a>
+
+            <a href="Hospital_Dashboard.html" class="active">
+                Hospital
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+        </nav>
+
+
+        <a href="login.html" class="nav-login-btn">
+            Login
+        </a>
+
+    </header>
+
+
+
+    <section class="page-header">
+
+        <h1>Hospital Portal</h1>
+
+        <p>
+
+            Secure portal for verified hospitals to manage
+
+            blood donation camps, donors and blood requirements.
+
+        </p>
+
+    </section>
+
+
+    <section class="form-section">
+
+        <div class="form-card">
+
+            <h2>Hospital Verification</h2>
+
+            <p class="section-description">
+
+                Only verified hospitals can access the Jeevan
+
+                Hospital Portal.
+
+            </p>
+
+
+
+            <form id="hospitalVerificationForm">
+
+                <div class="form-group">
+
+                    <label for="governmentId">
+
+                        Government Hospital ID
+
+                    </label>
+
+
+                    <input type="text" id="governmentId" placeholder="Enter Government Hospital ID" required>
+
+                </div>
+
+
+                <button type="submit" class="form-btn">
+
+                    Verify Hospital
+
+                </button>
+
+            </form>
+
+
+            <div id="verificationResult" style="display:none; margin-top:20px;">
+
+                <h3 id="resultTitle"></h3>
+
+                <p id="resultMessage"></p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="process-section">
+
+        <h2>Hospital Portal</h2>
+
+        <p class="section-description">
+
+            Verified hospitals can use Jeevan to manage
+
+            their blood-related activities.
+
+        </p>
+
+
+        <div class="process-steps">
+
+
+            <div class="process-step">
+
+                <div class="step-icon">
+
+                    🩸
+
+                </div>
+
+                <h3>Manage Blood</h3>
+
+                <p>
+
+                    Manage blood requirements and emergency
+
+                    blood requests.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="process-step">
+
+                <div class="step-icon">
+
+                    👥
+
+                </div>
+
+                <h3>Manage Donors</h3>
+
+                <p>
+
+                    View registered donors and update their
+
+                    donation status.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="process-step">
+
+                <div class="step-icon">
+
+                    📅
+
+                </div>
+
+                <h3>Manage Camps</h3>
+
+                <p>
+
+                    Create blood donation camps and publish
+
+                    upcoming events for users.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        <p>
+
+            © 2026 Jeevan. Every Drop Counts.
+
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
