@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up — BloodCare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="auth-page">
+    <div class="auth-card">
+
+        <div class="auth-logo">
+            <a href="index.html">
+                <img src="logo1.png" alt="BloodCare">
+            </a>
+        </div>
+
+        <h2>Create Your Account</h2>
+        <p class="auth-subtitle">Join BloodCare and help save lives</p>
+
+        <form>
+            <p class="form-group" style="margin-bottom: 5px;">
+                <label>I want to</label>
+            </p>
+            <div class="role-selector">
+                <div class="role-option">
+                    <input type="radio" name="role" id="role-donor" value="donor" checked>
+                    <label for="role-donor">🩸 Donate Blood</label>
+                </div>
+                <div class="role-option">
+                    <input type="radio" name="role" id="role-recipient" value="recipient">
+                    <label for="role-recipient">🔍 Find Blood</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="your@email.com">
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label>Blood Group</label>
+                <select>
+                    <option value="">Select Blood Group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" placeholder="Create a password">
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" placeholder="Confirm your password">
+            </div>
+
+            <button type="button" class="form-btn">Create Account</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
