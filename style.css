@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +7,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #f8fafc;
     color: #111827;
 }
@@ -60,6 +62,11 @@ nav a {
 
 nav a:hover {
     color: #b91c1c;
+}
+
+nav a.active {
+    color: #b91c1c;
+    font-weight: 600;
 }
 
 
@@ -130,13 +137,14 @@ nav a:hover {
 }
 
 .primary {
-    background-color: #b91c1c;
-
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
     color: white;
+    box-shadow: 0 4px 15px rgba(185, 28, 28, 0.25);
 }
 
 .primary:hover {
-    background-color: #991b1b;
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+    box-shadow: 0 6px 20px rgba(185, 28, 28, 0.35);
 }
 
 .secondary {
@@ -535,20 +543,49 @@ footer {
 
     .navbar {
         height: auto;
+        padding: 15px 5%;
+        flex-wrap: wrap;
+    }
 
-        padding: 20px;
+    .logo {
+        flex: 1;
+    }
 
-        flex-direction: column;
-
-        gap: 15px;
+    .hamburger {
+        display: block;
     }
 
     nav {
-        flex-wrap: wrap;
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+        gap: 0;
+        padding: 15px 0 5px;
+        border-top: 1px solid #e5e7eb;
+        margin-top: 15px;
+    }
 
-        justify-content: center;
+    nav a {
+        padding: 12px 0;
+        border-bottom: 1px solid #f3f4f6;
+    }
 
-        gap: 15px;
+    .menu-checkbox:checked ~ nav {
+        display: flex;
+    }
+
+    .nav-login-btn {
+        display: none;
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        margin-top: 5px;
+        border-radius: 8px;
+    }
+
+    .menu-checkbox:checked ~ .nav-login-btn {
+        display: block;
     }
 
     .hero {
@@ -750,6 +787,945 @@ footer {
 
     .team-cards {
         grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* ================= NAVBAR LOGIN BUTTON ================= */
+/* rohit */
+
+.nav-login-btn {
+    padding: 9px 22px;
+    font-size: 14px;
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: white;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: 0.3s;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(185, 28, 28, 0.2);
+}
+
+.nav-login-btn:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(185, 28, 28, 0.3);
+}
+
+
+/* ================= HAMBURGER MENU ================= */
+
+.menu-checkbox {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 5px;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: #111827;
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+
+/* ================= PAGE HEADER (Inner Pages) ================= */
+
+.page-header {
+    background: linear-gradient(135deg, #fff1f2, #ffffff);
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 42px;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.page-header p {
+    color: #6b7280;
+    font-size: 17px;
+    max-width: 550px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+
+/* ================= FORM STYLES ================= */
+
+.form-section {
+    padding: 60px 10%;
+}
+
+.form-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.form-card h2 {
+    font-size: 24px;
+    color: #111827;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #374151;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #111827;
+    transition: 0.3s;
+    background: #f9fafb;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #b91c1c;
+    box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
+    background: white;
+}
+
+.form-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 8px;
+    box-shadow: 0 4px 15px rgba(185, 28, 28, 0.25);
+    font-family: inherit;
+}
+
+.form-btn:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(185, 28, 28, 0.35);
+}
+
+
+/* ================= SEARCH (Find Blood) ================= */
+
+.search-section {
+    padding: 50px 10%;
+    text-align: center;
+}
+
+.search-form {
+    display: flex;
+    gap: 12px;
+    max-width: 650px;
+    margin: 0 auto 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.search-form select,
+.search-form input {
+    padding: 13px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    flex: 1;
+    min-width: 180px;
+    background: white;
+    color: #111827;
+    transition: 0.3s;
+}
+
+.search-form select:focus,
+.search-form input:focus {
+    outline: none;
+    border-color: #b91c1c;
+    box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
+}
+
+.search-form .btn {
+    min-width: 130px;
+    cursor: pointer;
+    border: none;
+    font-family: Arial, sans-serif;
+}
+
+.results-heading {
+    font-size: 22px;
+    color: #111827;
+    margin-bottom: 25px;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    max-width: 750px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.donor-card {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: 0.3s;
+}
+
+.donor-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    border-color: #fecaca;
+}
+
+.blood-badge {
+    background: #fee2e2;
+    color: #b91c1c;
+    font-weight: bold;
+    font-size: 16px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.donor-details h3 {
+    font-size: 16px;
+    color: #111827;
+    margin-bottom: 3px;
+}
+
+.donor-details p {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 2px;
+}
+
+.donor-details .available {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.demo-note {
+    margin-top: 30px;
+    font-size: 13px;
+    color: #9ca3af;
+    font-style: italic;
+}
+
+
+/* ================= COMPATIBILITY TABLE ================= */
+
+.compat-section {
+    padding: 60px 10%;
+    text-align: center;
+    background: white;
+}
+
+.compat-section h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.compat-table-wrap {
+    overflow-x: auto;
+    margin-top: 30px;
+}
+
+.compat-table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #e5e7eb;
+}
+
+.compat-table th,
+.compat-table td {
+    padding: 13px 15px;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+.compat-table th {
+    background: #b91c1c;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.compat-table td:first-child {
+    font-weight: 700;
+    color: #b91c1c;
+    background: #fff1f2;
+}
+
+.compat-table tr:hover td {
+    background: #fff8f8;
+}
+
+.compat-table tr:hover td:first-child {
+    background: #fee2e2;
+}
+
+
+/* ================= BLOOD BANK DIRECTORY ================= */
+
+.bank-section {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.bank-section h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.bank-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+    text-align: left;
+}
+
+.bank-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    transition: 0.3s;
+}
+
+.bank-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    border-color: #fecaca;
+}
+
+.bank-card h3 {
+    font-size: 17px;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.bank-card p {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 5px;
+}
+
+.bank-card .bank-phone {
+    color: #b91c1c;
+    font-weight: 600;
+}
+
+
+/* ================= ELIGIBILITY CHECKER ================= */
+
+.eligibility-section {
+    padding: 40px 10% 20px;
+}
+
+.eligibility-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #f0fdf4;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid #bbf7d0;
+    text-align: left;
+}
+
+.eligibility-card h3 {
+    font-size: 20px;
+    margin-bottom: 18px;
+    color: #111827;
+    text-align: center;
+}
+
+.eligibility-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #dcfce7;
+    font-size: 15px;
+    color: #374151;
+}
+
+.eligibility-item:last-child {
+    border-bottom: none;
+}
+
+.eligibility-item .check {
+    color: #16a34a;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* ================= INFO CARDS (Why Donate, What We Do) ================= */
+
+.info-section {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.info-section h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.info-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.info-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.info-card .icon {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.info-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #111827;
+}
+
+.info-card p {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+
+/* ================= PROCESS STEPS ================= */
+
+.process-section {
+    padding: 60px 10%;
+    text-align: center;
+    background: white;
+}
+
+.process-section h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 35px;
+}
+
+.process-step {
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    transition: 0.3s;
+}
+
+.process-step:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.process-step .step-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.process-step h3 {
+    font-size: 17px;
+    margin-bottom: 8px;
+    color: #111827;
+}
+
+.process-step p {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+
+/* ================= EMERGENCY NOTE ================= */
+
+.emergency-note {
+    max-width: 600px;
+    margin: 30px auto 0;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-left: 4px solid #b91c1c;
+    padding: 18px 22px;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.emergency-note p {
+    color: #991b1b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* ================= ABOUT PAGE - MISSION ================= */
+
+.mission-section {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.mission-section h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.mission-text {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 17px;
+    color: #4b5563;
+    line-height: 1.8;
+}
+
+
+/* ================= MYTHS & FACTS ================= */
+
+.myths-section {
+    padding: 60px 10%;
+    text-align: center;
+    background: #f1f5f9;
+}
+
+.myths-section h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.myth-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 40px;
+    text-align: left;
+}
+
+.myth-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    transition: 0.3s;
+}
+
+.myth-card:hover {
+    border-color: #fecaca;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.myth-label {
+    color: #dc2626;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.myth-text {
+    font-size: 15px;
+    color: #374151;
+    margin-bottom: 12px;
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.fact-label {
+    color: #16a34a;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.fact-text {
+    font-size: 15px;
+    color: #111827;
+    line-height: 1.5;
+}
+
+
+/* ================= FAQ ================= */
+
+.faq-section {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.faq-section h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.faq-list {
+    max-width: 700px;
+    margin: 35px auto 0;
+    text-align: left;
+}
+
+.faq-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 22px 25px;
+    margin-bottom: 12px;
+    transition: 0.3s;
+}
+
+.faq-item:hover {
+    border-color: #fecaca;
+}
+
+.faq-item h3 {
+    font-size: 16px;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.faq-item p {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.7;
+}
+
+
+/* ================= AUTH PAGES (Login / Signup) ================= */
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fff1f2, #f8fafc, #fff1f2);
+    padding: 40px 20px;
+}
+
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    max-width: 420px;
+}
+
+.auth-logo {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.auth-logo img {
+    height: 50px;
+}
+
+.auth-card h2 {
+    font-size: 26px;
+    color: #111827;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.auth-subtitle {
+    color: #6b7280;
+    font-size: 15px;
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.auth-card .form-group {
+    text-align: left;
+}
+
+.forgot-link {
+    display: block;
+    text-align: right;
+    font-size: 13px;
+    color: #b91c1c;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.auth-footer {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #6b7280;
+    text-align: center;
+}
+
+.auth-footer a {
+    color: #b91c1c;
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.role-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.role-option {
+    flex: 1;
+    position: relative;
+}
+
+.role-option input {
+    display: none;
+}
+
+.role-option label {
+    display: block;
+    padding: 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+    color: #374151;
+    font-weight: 600;
+}
+
+.role-option input:checked + label {
+    border-color: #b91c1c;
+    background: #fff1f2;
+    color: #b91c1c;
+}
+
+.role-option label:hover {
+    border-color: #b91c1c;
+}
+
+
+/* ================= RESPONSIVE — NEW COMPONENTS (900px) ================= */
+
+@media (max-width: 900px) {
+
+    .results-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+
+    .bank-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .info-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .myth-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .compat-table th,
+    .compat-table td {
+        padding: 8px 6px;
+        font-size: 12px;
+    }
+}
+
+
+/* ================= RESPONSIVE — NEW COMPONENTS (650px) ================= */
+
+@media (max-width: 650px) {
+
+    .page-header {
+        padding: 45px 6%;
+    }
+
+    .page-header h1 {
+        font-size: 32px;
+    }
+
+    .search-section {
+        padding: 40px 5%;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form select,
+    .search-form input {
+        min-width: auto;
+    }
+
+    .form-section {
+        padding: 40px 5%;
+    }
+
+    .form-card {
+        padding: 25px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .compat-section,
+    .bank-section,
+    .info-section,
+    .mission-section,
+    .myths-section,
+    .faq-section {
+        padding: 45px 5%;
+    }
+
+    .compat-section h2,
+    .bank-section h2,
+    .info-section h2,
+    .mission-section h2,
+    .myths-section h2,
+    .faq-section h2,
+    .process-section h2 {
+        font-size: 26px;
+    }
+
+    .bank-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .process-section {
+        padding: 45px 5%;
+    }
+
+    .auth-card {
+        padding: 28px 22px;
+    }
+
+    .role-selector {
+        flex-direction: column;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+        gap: 0;
+        padding: 15px 0 5px;
+        border-top: 1px solid #e5e7eb;
+        margin-top: 15px;
+    }
+
+    nav a {
+        padding: 12px 0;
+        border-bottom: 1px solid #f3f4f6;
+    }
+
+    .menu-checkbox:checked ~ nav {
+        display: flex;
+    }
+
+    .nav-login-btn {
+        display: none;
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        margin-top: 5px;
+        border-radius: 8px;
+    }
+
+    .menu-checkbox:checked ~ .nav-login-btn {
+        display: block;
     }
 
 }

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Blood — Jeevan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<header class="navbar">
+    <div class="logo">
+        <img src="logo1.png" alt="Jeevan" class="logo-img">
+    </div>
+
+    <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+    <label for="menu-toggle" class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="find_blood.html" class="active">Find Blood</a>
+        <a href="donate.html">Donate Blood</a>
+        <a href="Hospital_Dashboard.html">Hospital Dashboard</a>
+        <a href="about.html">About</a>
+    </nav>
+    <a href="login.html" class="nav-login-btn">Login</a>
+</header>
+
+<section class="page-header">
+    <h1>Find Blood</h1>
+    <p>Search for available blood donors and blood banks near your location.</p>
+</section>
+
+<section class="search-section">
+
+    <form class="search-form">
+        <select>
+            <option value="">Select Blood Group</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+        </select>
+
+        <input type="text" placeholder="Enter your city">
+
+        <button type="button" class="btn primary">Search</button>
+    </form>
+
+    <h3 class="results-heading">Available Donors</h3>
+
+    <div class="results-grid">
+
+        <div class="donor-card">
+            <div class="blood-badge">A+</div>
+            <div class="donor-details">
+                <h3>Amit Kumar</h3>
+                <p>📍 Chandigarh</p>
+                <p class="available">● Available</p>
+            </div>
+        </div>
+
+        <div class="donor-card">
+            <div class="blood-badge">O+</div>
+            <div class="donor-details">
+                <h3>Priya Singh</h3>
+                <p>📍 Mohali</p>
+                <p class="available">● Available</p>
+            </div>
+        </div>
+
+        <div class="donor-card">
+            <div class="blood-badge">B+</div>
+            <div class="donor-details">
+                <h3>Rajesh Verma</h3>
+                <p>📍 Panchkula</p>
+                <p class="available">● Available</p>
+            </div>
+        </div>
+
+        <div class="donor-card">
+            <div class="blood-badge">AB-</div>
+            <div class="donor-details">
+                <h3>Sneha Patel</h3>
+                <p>📍 Chandigarh</p>
+                <p class="available">● Available</p>
+            </div>
+        </div>
+
+    </div>
+
+    <p class="demo-note">These are sample results. Live search will be available soon.</p>
+
+</section>
+
+
+<section class="compat-section">
+
+    <h2>Blood Compatibility Chart</h2>
+    <p class="section-description">Know which blood type can donate to and receive from.</p>
+
+    <div class="compat-table-wrap">
+        <table class="compat-table">
+            <thead>
+                <tr>
+                    <th>Blood Group</th>
+                    <th>Can Donate To</th>
+                    <th>Can Receive From</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>O-</td>
+                    <td>All Blood Groups</td>
+                    <td>O-</td>
+                </tr>
+                <tr>
+                    <td>O+</td>
+                    <td>O+, A+, B+, AB+</td>
+                    <td>O+, O-</td>
+                </tr>
+                <tr>
+                    <td>A-</td>
+                    <td>A-, A+, AB-, AB+</td>
+                    <td>A-, O-</td>
+                </tr>
+                <tr>
+                    <td>A+</td>
+                    <td>A+, AB+</td>
+                    <td>A+, A-, O+, O-</td>
+                </tr>
+                <tr>
+                    <td>B-</td>
+                    <td>B-, B+, AB-, AB+</td>
+                    <td>B-, O-</td>
+                </tr>
+                <tr>
+                    <td>B+</td>
+                    <td>B+, AB+</td>
+                    <td>B+, B-, O+, O-</td>
+                </tr>
+                <tr>
+                    <td>AB-</td>
+                    <td>AB-, AB+</td>
+                    <td>A-, B-, AB-, O-</td>
+                </tr>
+                <tr>
+                    <td>AB+</td>
+                    <td>AB+</td>
+                    <td>All Blood Groups</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+<section class="bank-section">
+
+    <h2>Blood Banks Near You</h2>
+    <p class="section-description">Find verified blood banks in your area.</p>
+
+    <div class="bank-cards">
+
+        <div class="bank-card">
+            <h3>🏥 PGI Blood Bank</h3>
+            <p>📍 Sector 12, Chandigarh</p>
+            <p>🕐 Open 24 Hours</p>
+            <p class="bank-phone">📞 0172-2746018</p>
+        </div>
+
+        <div class="bank-card">
+            <h3>🏥 GMCH Blood Bank</h3>
+            <p>📍 Sector 32, Chandigarh</p>
+            <p>🕐 8:00 AM – 8:00 PM</p>
+            <p class="bank-phone">📞 0172-2665253</p>
+        </div>
+
+        <div class="bank-card">
+            <h3>🏥 Red Cross Blood Bank</h3>
+            <p>📍 Sector 16, Chandigarh</p>
+            <p>🕐 9:00 AM – 5:00 PM</p>
+            <p class="bank-phone">📞 0172-2700069</p>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>© 2026 Jeevan. Every Drop Counts.</p>
+</footer>
+
+</body>
+</html>
