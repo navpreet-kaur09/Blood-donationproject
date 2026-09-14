@@ -181,7 +181,7 @@ nav a.active {
 .loader-icon {
     font-size: 72px;
     margin-bottom: 16px;
-    animation: loaderHeartbeat 1.2s ease-in-out infinite;
+    /* animation: loaderHeartbeat 1.2s ease-in-out infinite; */
     filter: drop-shadow(0 0 25px rgba(239, 68, 68, 0.6));
 }
 
@@ -195,26 +195,28 @@ nav a.active {
 }
 
 .loader-bar-track {
-    width: 240px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 50px;
-    overflow: hidden;
-    margin: 0 auto 18px;
+    width: 70px;
+    height: 70px;
+    border: 6px solid #fee2e2;
+    border-top: 6px solid #b91c1c;
+    margin : 20px auto ;
+    border-radius: 50%;
+    animation: loaderSpin 1s linear infinite;
 }
 
 .loader-bar-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #dc2626, #f87171, #dc2626);
-    background-size: 200% 100%;
-    border-radius: 50px;
-    animation:
-        loaderFill 2.6s ease-in-out forwards,
-        loaderShimmer 1.5s linear infinite;
-    box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+    display: none;
 }
 
+@keyframes loaderSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
 .loader-text {
     font-size: 12px;
     color: rgba(255, 255, 255, 0.4);
@@ -222,10 +224,10 @@ nav a.active {
     text-transform: uppercase;
 }
 
-.loader-dots::after {
+/* .loader-dots::after {
     content: '';
     animation: loaderDots 1.5s steps(4, end) infinite;
-}
+} */
 
 
 
@@ -242,14 +244,14 @@ nav a.active {
     100% { background-position: -200% 0; }
 }
 
-@keyframes loaderHeartbeat {
+/* @keyframes loaderHeartbeat {
     0%   { transform: scale(1); }
     15%  { transform: scale(1.15); }
     30%  { transform: scale(1); }
     45%  { transform: scale(1.08); }
     60%  { transform: scale(1); }
     100% { transform: scale(1); }
-}
+} */
 
 @keyframes loaderFadeOut {
     0%   { opacity: 1; pointer-events: all; }
@@ -261,12 +263,12 @@ nav a.active {
     100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@keyframes loaderDots {
+/* @keyframes loaderDots {
     0%   { content: ''; }
     25%  { content: '.'; }
     50%  { content: '..'; }
     75%  { content: '...'; }
-}
+} */
 
 .primary {
     background: linear-gradient(135deg, #dc2626, #b91c1c);
