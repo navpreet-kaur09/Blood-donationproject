@@ -1,84 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Login — Jeevan</title>
-
     <link rel="icon" type="image/png" href="logo1.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="theme-forms.css">
 </head>
+<body class="jv-page">
 
-<body>
+<div class="au-wrap">
 
-<div class="auth-page">
+    <!-- Brand panel -->
+    <aside class="au-side">
+        <div class="au-brand">Jeevan</div>
 
-    <div class="auth-card">
-
-        <div class="auth-logo">
-            <img src="logo1.png" alt="Jeevan">
+        <div>
+            <h1>Welcome back. Someone may need you.</h1>
+            <p>Log in to manage your donor profile, search for blood, and respond when it matters.</p>
+            <ul class="au-points">
+                <li>Find blood by group and location</li>
+                <li>Keep your donor details up to date</li>
+                <li>Connect with blood banks</li>
+            </ul>
         </div>
 
-        <h2>Welcome Back</h2>
+        <span></span>
+    </aside>
 
-        <p class="auth-subtitle">
-            Login to your Jeevan account
-        </p>
+    <!-- Form -->
+    <main class="au-main">
+        <div class="au-form-box">
 
-        <form id="loginForm">
+            <a href="index.html"><img src="logo1.png" alt="Jeevan" class="au-logo"></a>
 
-            <div class="form-group">
+            <h2>Log in</h2>
+            <p class="au-sub">Enter your details to continue.</p>
 
-                <label>Email or Phone</label>
+            <form id="loginForm">
 
-                <input
-                    type="text"
-                    id="loginEmail"
-                    placeholder="Enter your email or phone"
-                    required
-                >
+                <div class="fld">
+                    <label for="loginEmail">Email or phone</label>
+                    <input type="text" id="loginEmail" placeholder="Enter your email or phone" autocomplete="username" required>
+                </div>
 
-            </div>
+                <div class="fld">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" required>
+                </div>
 
-            <div class="form-group">
+                <a href="#" class="au-forgot">Forgot password?</a>
 
-                <label>Password</label>
+                <p id="loginMessage" class="au-msg" role="status"></p>
 
-                <input
-                    type="password"
-                    id="loginPassword"
-                    placeholder="Enter your password"
-                    required
-                >
+                <button type="submit" class="jv-btn">Login</button>
 
-            </div>
+            </form>
 
-            <a href="#" class="forgot-link">
-                Forgot Password?
-            </a>
-
-            <button
-                type="submit"
-                class="form-btn">
-                Login
-            </button>
-
-            <p id="loginMessage"></p>
-
-        </form>
-
-        <div class="auth-footer">
-
-            <p>
+            <p class="au-foot">
                 Don't have an account?
-                <a href="signup.html">Sign Up</a>
+                <a href="signup.html">Sign up</a>
             </p>
 
         </div>
-
-    </div>
+    </main>
 
 </div>
 
