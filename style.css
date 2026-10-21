@@ -133,6 +133,9 @@ nav a.active {
 
     transition: 0.3s;
 }
+.search-form button {
+    display: none;
+}
 .loader-overlay {
     position: fixed;
     top: 0;
