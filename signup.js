@@ -1,115 +1,56 @@
-document.addEventListener("DOMContentLoaded", function () {
+const signupForm = document.getElementById("signupForm");
 
-    const signupForm = document.getElementById("signupForm");
+signupForm.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    signupForm.addEventListener("submit", function (event) {
+    const role = document.querySelector('input[name="role"]:checked').value;
+    const name = document.querySelector('input[type="text"]').value.trim();
+    const email = document.querySelector('input[type="email"]').value.trim();
+    const phone = document.querySelector('input[type="tel"]').value.trim();
+    const bloodGroup = document.querySelector("select").value;
 
-        event.preventDefault();
+    const passwordInputs = document.querySelectorAll('input[type="password"]');
+    const password = passwordInputs[0].value;
+    const confirmPassword = passwordInputs[1].value;
 
-        // Get form values
-        const name = document.getElementById("signupName").value.trim();
-        const email = document.getElementById("signupEmail").value.trim();
-        const phone = document.getElementById("signupPhone").value.trim();
-        const bloodGroup = document.getElementById("signupBloodGroup").value;
+    // Validation
+    if (!name || !email || !phone || !bloodGroup || !password || !confirmPassword) {
+        alert("Please fill all the fields.");
+        return;
+    }
 
-        const password =
-            document.getElementById("signupPassword").value;
+    if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+    }
 
-        const confirmPassword =
-            document.getElementById("confirmPassword").value;
+    // Get existing users
+    let users = JSON.parse(localStorage.getItem("jeevanUsers")) || [];
 
-        const role =
-            document.querySelector('input[name="role"]:checked').value;
+    // Check if email already exists
+    const existingUser = users.find(user => user.email === email);
 
-        const message =
-            document.getElementById("signupMessage");
+    if (existingUser) {
+        alert("An account with this email already exists.");
+        return;
+    }
 
+    // Create new user
+    const newUser = {
+        role: role,
+        name: name,
+        email: email,
+        phone: phone,
+        bloodGroup: bloodGroup,
+        password: password
+    };
 
-        // Check password
-        if (password !== confirmPassword) {
+    // Save user
+    users.push(newUser);
+    localStorage.setItem("jeevanUsers", JSON.stringify(users));
 
-            message.textContent = "Passwords do not match.";
-            message.style.color = "red";
+    alert("Account created successfully!");
 
-            return;
-        }
-
-
-        // Get existing users
-        let users =
-            JSON.parse(localStorage.getItem("jeevanUsers")) || [];
-
-
-        // Check if email already exists
-        const emailExists = users.some(function (user) {
-            return user.email === email;
-        });
-
-        if (emailExists) {
-
-            message.textContent =
-                "This email is already registered. Please login.";
-
-            message.style.color = "red";
-
-            return;
-        }
-
-
-        // Check if phone already exists
-        const phoneExists = users.some(function (user) {
-            return user.phone === phone;
-        });
-
-        if (phoneExists) {
-
-            message.textContent =
-                "This phone number is already registered. Please login.";
-
-            message.style.color = "red";
-
-            return;
-        }
-
-
-        // Create new user
-        const user = {
-
-            name: name,
-            email: email,
-            phone: phone,
-            bloodGroup: bloodGroup,
-            role: role,
-            password: password
-
-        };
-
-
-        // Add user to users array
-        users.push(user);
-
-
-        // Save users
-        localStorage.setItem(
-            "jeevanUsers",
-            JSON.stringify(users)
-        );
-
-
-        // Success message
-        message.textContent =
-            "Account created successfully!";
-
-        message.style.color = "green";
-
-
-        // Go to login page
-        setTimeout(function () {
-
-            window.location.href = "login.html";
-
-        }, 1000);
-
-    });
-
+    // Go to login
+    window.location.href = "login.html";
 });

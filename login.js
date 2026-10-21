@@ -1,55 +1,33 @@
-document.addEventListener("DOMContentLoaded", function () {
+const loginForm = document.getElementById("loginForm");
+const loginMessage = document.getElementById("loginMessage");
 
-    const loginForm = document.getElementById("loginForm");
+loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    loginForm.addEventListener("submit", function (event) {
+    const loginInput = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
 
-        event.preventDefault();
+    // Get registered users
+    const users = JSON.parse(localStorage.getItem("jeevanUsers")) || [];
 
-        const emailOrPhone =
-            document.getElementById("loginEmail").value.trim();
+    // Find user by email or phone
+    const user = users.find(
+        user =>
+            (user.email === loginInput || user.phone === loginInput) &&
+            user.password === password
+    );
 
-        const password =
-            document.getElementById("loginPassword").value;
+    if (user) {
+        loginMessage.textContent = "Login successful!";
 
-        const message =
-            document.getElementById("loginMessage");
+        // Save currently logged-in user
+        localStorage.setItem("jeevanCurrentUser", JSON.stringify(user));
 
-        const savedUser = JSON.parse(
-            localStorage.getItem("jeevanUser")
-        );
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1000);
 
-        if (!savedUser) {
-            message.textContent =
-                "No account found. Please register first.";
-
-            message.style.color = "red";
-            return;
-        }
-
-        if (
-            (emailOrPhone === savedUser.email ||
-             emailOrPhone === savedUser.phone) &&
-            password === savedUser.password
-        ) {
-
-            localStorage.setItem("jeevanLoggedIn", "true");
-
-            message.textContent = "Login successful!";
-            message.style.color = "green";
-
-            setTimeout(function () {
-                window.location.href = "index.html";
-            }, 1000);
-
-        } else {
-
-            message.textContent =
-                "Invalid email/phone or password.";
-
-            message.style.color = "red";
-        }
-
-    });
-
+    } else {
+        loginMessage.textContent = "No registered user found or incorrect credentials.";
+    }
 });
