@@ -144,7 +144,6 @@ nav a.active {
     align-items: center;
     justify-content: center;
     background: #1a0000;
-    background-image: url('loader-bg.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1826,4 +1825,44 @@ footer {
         display: block;
     }
 
+}
+
+
+/* =========================
+   GURSHANT - JAVASCRIPT UI
+   ========================= */
+
+/* Active navbar link */
+nav a.active {
+    color: #b91c1c;
+    font-weight: bold;
+}
+
+/* Hamburger button */
+#menuBtn {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #b91c1c;
+    padding: 5px;
+}
+
+/* Mobile navbar */
+@media (max-width: 768px) {
+
+    #menuBtn {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    nav.show {
+        display: flex;
+    }
 }
