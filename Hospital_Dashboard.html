@@ -1,243 +1,454 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Hospital Portal — Jeevan </title>
-
+    <title>Hospital Portal — Jeevan</title>
+    <link rel="icon" type="image/png" href="logo1.png">
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
-
     <header class="navbar">
-
         <div class="logo">
-
-            <img src="logo1.png" alt="Jeevan" class="logo-img">
-
+            <a href="index.html">
+                <img src="logo1.png" alt="Jeevan" class="logo-img">
+            </a>
         </div>
-
 
         <input type="checkbox" id="menu-toggle" class="menu-checkbox">
 
-
         <label for="menu-toggle" class="hamburger">
-
             <span></span>
-
             <span></span>
-
             <span></span>
-
         </label>
 
-
         <nav>
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="find_blood.html">
-                Find Blood
-            </a>
-
-            <a href="donate.html">
-                Donate Blood
-            </a>
-
-            <a href="Hospital_Dashboard.html" class="active">
-                Hospital
-            </a>
-
-            <a href="about.html">
-                About
-            </a>
-
+            <a href="index.html">Home</a>
+            <a href="find_blood.html">Find Blood</a>
+            <a href="donate.html">Donate Blood</a>
+            <a href="Hospital_Dashboard.html" class="active">Hospital</a>
+            <a href="about.html">About</a>
         </nav>
 
-
-        <a href="login.html" class="nav-login-btn">
-            Login
-        </a>
-
+        <a href="login.html" class="nav-login-btn">Login</a>
     </header>
 
-
-
     <section class="page-header">
-
         <h1>Hospital Portal</h1>
-
         <p>
-
             Secure portal for verified hospitals to manage
-
             blood donation camps, donors and blood requirements.
-
         </p>
-
     </section>
 
-
-    <section class="form-section">
-
+    <section class="form-section" id="verificationSection">
         <div class="form-card">
-
             <h2>Hospital Verification</h2>
-
             <p class="section-description">
-
-                Only verified hospitals can access the Jeevan
-
-                Hospital Portal.
-
+                Only verified hospitals can access the Jeevan Hospital Portal.
             </p>
 
-
-
             <form id="hospitalVerificationForm">
-
                 <div class="form-group">
-
-                    <label for="governmentId">
-
-                        Government Hospital ID
-
-                    </label>
-
-
-                    <input type="text" id="governmentId" placeholder="Enter Government Hospital ID" required>
-
+                    <label for="governmentId">Government Hospital ID</label>
+                    <input type="text" id="governmentId" placeholder="e.g. HOSP-101 or PGI-CHD-102" required>
+                    <div class="demo-hint-box">
+                        💡 <strong>Demo Verification:</strong> Enter any sample ID like <code>HOSP-101</code>, <code>PGI-CHD-102</code>, or <code>AIIMS-DEL-01</code> (or any ID starting with <code>HOSP-</code> / min 4 characters).
+                    </div>
                 </div>
 
-
-                <button type="submit" class="form-btn">
-
+                <button type="submit" class="form-btn" id="verifyBtn">
                     Verify Hospital
-
                 </button>
-
             </form>
 
-
             <div id="verificationResult" style="display:none; margin-top:20px;">
-
                 <h3 id="resultTitle"></h3>
-
                 <p id="resultMessage"></p>
+            </div>
+        </div>
+    </section>
 
+    <section class="hospital-panel-section" id="hospitalManagementSection" style="display: none;">
+        
+        <div class="hospital-header-card">
+            <div class="hospital-header-info">
+                <h2>
+                    <span id="displayHospitalName">Govt. Medical College & Hospital</span>
+                    <span class="hospital-id-badge" id="displayHospitalId">ID: HOSP-101</span>
+                </h2>
+                <p>
+                    Authorized Blood Bank Center • Jeevan Hospital Network
+                    <span class="demo-disclaimer-pill">⚠️ Demo Verification Environment</span>
+                </p>
+            </div>
+            <div class="hospital-header-actions">
+                <button type="button" class="btn-sm btn-outline-secondary" id="resetDemoDataBtn" title="Reset all inventory and camps back to standard demo data">
+                    🔄 Reset Demo Data
+                </button>
+                <button type="button" class="btn-sm btn-outline-danger" id="exitHospitalBtn">
+                    🚪 Exit / Switch Hospital
+                </button>
+            </div>
+        </div>
+
+        <div class="hospital-stats-row">
+            <div class="hospital-stat-box">
+                <div class="stat-box-icon stat-icon-red">🩸</div>
+                <div class="stat-box-data">
+                    <h3 id="statTotalUnits">0</h3>
+                    <p>Total Blood Units</p>
+                </div>
+            </div>
+            <div class="hospital-stat-box">
+                <div class="stat-box-icon stat-icon-amber">⚠️</div>
+                <div class="stat-box-data">
+                    <h3 id="statLowStock">0</h3>
+                    <p>Low Stock / Expiring Soon</p>
+                </div>
+            </div>
+            <div class="hospital-stat-box">
+                <div class="stat-box-icon stat-icon-blue">📅</div>
+                <div class="stat-box-data">
+                    <h3 id="statActiveCamps">0</h3>
+                    <p>Scheduled Camps</p>
+                </div>
+            </div>
+            <div class="hospital-stat-box">
+                <div class="stat-box-icon stat-icon-green">👥</div>
+                <div class="stat-box-data">
+                    <h3 id="statActiveDonors">0</h3>
+                    <p>Donors Monitored</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hospital-nav-tabs">
+            <button type="button" class="hospital-tab-link active" data-tab="tab-inventory">
+                🩸 Manage Blood Inventory
+            </button>
+            <button type="button" class="hospital-tab-link" data-tab="tab-camps">
+                📅 Donation Camps
+            </button>
+            <button type="button" class="hospital-tab-link" data-tab="tab-donors">
+                👥 Donor Status Management
+            </button>
+            <button type="button" class="hospital-tab-link" data-tab="tab-overview">
+                📊 Live Stock Overview
+            </button>
+        </div>
+
+        <div class="hospital-tab-content active" id="tab-inventory">
+            
+            <div class="dashboard-card">
+                <div class="card-title-bar">
+                    <h3 id="inventoryFormHeading">➕ Add Blood Stock Batch</h3>
+                    <p>Add new verified blood units into hospital storage</p>
+                </div>
+
+                <div id="inventoryEditBanner" class="edit-mode-banner" style="display: none;">
+                    <span>Currently editing stock batch. Click 'Cancel Edit' to discard changes.</span>
+                    <button type="button" class="btn-sm btn-outline-secondary" id="cancelEditBtn">Cancel Edit</button>
+                </div>
+
+                <form id="addInventoryForm">
+                    <input type="hidden" id="editInventoryId" value="">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inventoryBloodGroup">Blood Group</label>
+                            <select id="inventoryBloodGroup" required>
+                                <option value="">Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inventoryComponent">Component Type</label>
+                            <select id="inventoryComponent" required>
+                                <option value="Whole Blood">Whole Blood (WB)</option>
+                                <option value="Packed Red Cells">Packed Red Cells (PRBC)</option>
+                                <option value="Platelets">Platelets (RDP/SDP)</option>
+                                <option value="Fresh Frozen Plasma">Fresh Frozen Plasma (FFP)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inventoryUnits">Quantity (Units / Bags)</label>
+                            <input type="number" id="inventoryUnits" min="1" max="500" placeholder="e.g. 10" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inventoryExpiry">Expiry Date</label>
+                            <input type="date" id="inventoryExpiry" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inventoryLocation">Storage Unit / Rack (Optional)</label>
+                        <input type="text" id="inventoryLocation" placeholder="e.g. Cold Room 1 - Rack B2">
+                    </div>
+
+                    <button type="submit" class="form-btn" id="saveInventoryBtn">
+                        Save Blood Stock
+                    </button>
+                </form>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title-bar">
+                    <h3>📦 Current Blood Stock Records</h3>
+                    <p>All active units logged under this hospital</p>
+                </div>
+
+                <div class="filter-row">
+                    <select id="filterBloodGroup" class="filter-input">
+                        <option value="">Filter: All Blood Groups</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                    <select id="filterStockStatus" class="filter-input">
+                        <option value="">Filter: All Statuses</option>
+                        <option value="available">In Stock</option>
+                        <option value="low">Low Quantity (&lt; 5)</option>
+                        <option value="expired">Expired / Critical</option>
+                    </select>
+                </div>
+
+                <div class="hospital-table-wrapper">
+                    <table class="hospital-table">
+                        <thead>
+                            <tr>
+                                <th>Group</th>
+                                <th>Component</th>
+                                <th>Quantity</th>
+                                <th>Expiry Date</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTableBody">
+                            
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="inventoryEmptyState" class="empty-state-notice" style="display: none;">
+                    <div class="empty-state-icon">🩸</div>
+                    <h4>No Blood Stock Records Found</h4>
+                    <p>There are currently no blood inventory batches matching your criteria. Use the form above to add a new batch.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hospital-tab-content" id="tab-camps">
+            
+            <div class="dashboard-card">
+                <div class="card-title-bar">
+                    <h3>➕ Schedule a Blood Donation Camp</h3>
+                    <p>Publish an upcoming donation camp for public and donor participation</p>
+                </div>
+
+                <form id="addCampForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="campName">Camp / Drive Name</label>
+                            <input type="text" id="campName" placeholder="e.g. Annual City Blood Donation Camp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="campOrganizer">Organized By / Department</label>
+                            <input type="text" id="campOrganizer" placeholder="e.g. Red Cross & Youth Club" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="campDate">Date of Camp</label>
+                            <input type="date" id="campDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="campTiming">Operating Timings</label>
+                            <input type="text" id="campTiming" placeholder="e.g. 09:00 AM – 04:00 PM" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="campVenue">Venue & Full Address</label>
+                            <input type="text" id="campVenue" placeholder="e.g. Community Center, Sector 17, Chandigarh" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="campTarget">Target Units (Bags)</label>
+                            <input type="number" id="campTarget" min="5" max="1000" placeholder="e.g. 100" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="form-btn">
+                        Schedule Donation Camp
+                    </button>
+                </form>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title-bar">
+                    <h3>📅 Scheduled Blood Camps</h3>
+                    <p>Upcoming and ongoing donation drives</p>
+                </div>
+
+                <div class="camps-card-grid" id="campsContainer">
+                    
+                </div>
+
+                <div id="campsEmptyState" class="empty-state-notice" style="display: none;">
+                    <div class="empty-state-icon">📅</div>
+                    <h4>No Donation Camps Scheduled</h4>
+                    <p>You have not published any donation camps yet. Use the schedule form above to create your first camp.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hospital-tab-content" id="tab-donors">
+            
+            <div class="dashboard-card">
+                <div class="card-title-bar">
+                    <h3>👥 Registered Donor Management</h3>
+                    <p>View registered donors, monitor eligibility, and record completed donations</p>
+                </div>
+
+                <div class="filter-row">
+                    <input type="text" id="donorSearchInput" class="filter-input" placeholder="🔍 Search donor by name or phone...">
+                    <select id="donorGroupFilter" class="filter-input">
+                        <option value="">All Blood Groups</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                    <select id="donorStatusFilter" class="filter-input">
+                        <option value="">All Statuses</option>
+                        <option value="Eligible">Eligible</option>
+                        <option value="Donated (Resting)">Resting (Donated)</option>
+                        <option value="Deferred">Deferred</option>
+                    </select>
+                </div>
+
+                <div class="hospital-table-wrapper">
+                    <table class="hospital-table">
+                        <thead>
+                            <tr>
+                                <th>Donor Name</th>
+                                <th>Group</th>
+                                <th>Contact / City</th>
+                                <th>Last Donation</th>
+                                <th>Current Status</th>
+                                <th>Hospital Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donorsTableBody">
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="donorsEmptyState" class="empty-state-notice" style="display: none;">
+                    <div class="empty-state-icon">👥</div>
+                    <h4>No Donors Found</h4>
+                    <p>No registered donor matches your search filter.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hospital-tab-content" id="tab-overview">
+            
+            <div class="dashboard-card">
+                <div class="card-title-bar">
+                    <h3>📊 Stock Availability by Blood Group</h3>
+                    <p>Real-time units tally for emergency readiness</p>
+                </div>
+
+                <div class="blood-summary-grid" id="bloodSummaryGrid">
+                    
+                </div>
+            </div>
+
+            <div class="emergency-note" style="max-width: 100%; margin-top: 10px;">
+                <p>
+                    <strong>📌 System Architecture Notice:</strong>
+                    This front-end dashboard demonstrates how verified hospital personnel interact with blood inventory, camps, and donor records. Data is stored safely within your browser session (LocalStorage). In a production deployment, this interface would be connected to an authenticated REST/GraphQL hospital API with multi-factor verification.
+                </p>
             </div>
 
         </div>
 
     </section>
 
-
-
     <section class="process-section">
-
         <h2>Hospital Portal</h2>
-
         <p class="section-description">
-
             Verified hospitals can use Jeevan to manage
-
             their blood-related activities.
-
         </p>
 
-
         <div class="process-steps">
-
-
             <div class="process-step">
-
-                <div class="step-icon">
-
-                    🩸
-
-                </div>
-
+                <div class="step-icon">🩸</div>
                 <h3>Manage Blood</h3>
-
                 <p>
-
                     Manage blood requirements and emergency
-
                     blood requests.
-
                 </p>
-
             </div>
 
-
-
             <div class="process-step">
-
-                <div class="step-icon">
-
-                    👥
-
-                </div>
-
+                <div class="step-icon">👥</div>
                 <h3>Manage Donors</h3>
-
                 <p>
-
                     View registered donors and update their
-
                     donation status.
-
                 </p>
-
             </div>
-
-
 
             <div class="process-step">
-
-                <div class="step-icon">
-
-                    📅
-
-                </div>
-
+                <div class="step-icon">📅</div>
                 <h3>Manage Camps</h3>
-
                 <p>
-
                     Create blood donation camps and publish
-
                     upcoming events for users.
-
                 </p>
-
             </div>
-
         </div>
-
     </section>
 
     <footer>
-
-        <p>
-
-            © 2026 Jeevan. Every Drop Counts.
-
-        </p>
-
+        <p>© 2026 Jeevan. Every Drop Counts.</p>
     </footer>
+
+    <script src="hospital.js"></script>
 
 </body>
 
