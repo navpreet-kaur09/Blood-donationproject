@@ -41,9 +41,7 @@ a {
     width: auto;
     object-fit: contain;
 }
-.logo-img {
-    height: 70px;
-}
+
 nav {
     display: flex;
 
@@ -452,8 +450,6 @@ nav a.active {
 }
 
 
-/* ================= USER REVIEWS ================= */
-
 .reviews {
     padding: 80px 10%;
 
@@ -504,8 +500,6 @@ nav a.active {
 }
 
 
-/* Stars */
-
 .stars {
     color: #f59e0b;
 
@@ -516,8 +510,6 @@ nav a.active {
     margin-bottom: 18px;
 }
 
-
-/* Review text */
 
 .review-card > p {
     color: #4b5563;
@@ -926,9 +918,6 @@ footer {
 }
 
 
-/* ================= NAVBAR LOGIN BUTTON ================= */
-/* rohit */
-
 .nav-login-btn {
     padding: 9px 22px;
     font-size: 14px;
@@ -947,8 +936,6 @@ footer {
     box-shadow: 0 4px 12px rgba(185, 28, 28, 0.3);
 }
 
-
-/* ================= HAMBURGER MENU ================= */
 
 .menu-checkbox {
     display: none;
@@ -973,7 +960,6 @@ footer {
 }
 
 
-/* ================= PAGE HEADER (Inner Pages) ================= */
 
 .page-header {
     background: linear-gradient(135deg, #fff1f2, #ffffff);
@@ -996,7 +982,7 @@ footer {
 }
 
 
-/* ================= FORM STYLES ================= */
+
 
 .form-section {
     padding: 60px 10%;
@@ -1083,7 +1069,6 @@ footer {
 }
 
 
-/* ================= SEARCH (Find Blood) ================= */
 
 .search-section {
     padding: 50px 10%;
@@ -1198,8 +1183,6 @@ footer {
 }
 
 
-/* ================= COMPATIBILITY TABLE ================= */
-
 .compat-section {
     padding: 60px 10%;
     text-align: center;
@@ -1255,7 +1238,6 @@ footer {
 }
 
 
-/* ================= BLOOD BANK DIRECTORY ================= */
 
 .bank-section {
     padding: 60px 10%;
@@ -1308,7 +1290,6 @@ footer {
 }
 
 
-/* ================= ELIGIBILITY CHECKER ================= */
 
 .eligibility-section {
     padding: 40px 10% 20px;
@@ -1352,7 +1333,6 @@ footer {
 }
 
 
-/* ================= INFO CARDS (Why Donate, What We Do) ================= */
 
 .info-section {
     padding: 60px 10%;
@@ -1402,9 +1382,6 @@ footer {
     line-height: 1.6;
 }
 
-
-/* ================= PROCESS STEPS ================= */
-
 .process-section {
     padding: 60px 10%;
     text-align: center;
@@ -1453,7 +1430,6 @@ footer {
 }
 
 
-/* ================= EMERGENCY NOTE ================= */
 
 .emergency-note {
     max-width: 600px;
@@ -1473,7 +1449,6 @@ footer {
 }
 
 
-/* ================= ABOUT PAGE - MISSION ================= */
 
 .mission-section {
     padding: 60px 10%;
@@ -1493,8 +1468,6 @@ footer {
     line-height: 1.8;
 }
 
-
-/* ================= MYTHS & FACTS ================= */
 
 .myths-section {
     padding: 60px 10%;
@@ -1560,8 +1533,6 @@ footer {
 }
 
 
-/* ================= FAQ ================= */
-
 .faq-section {
     padding: 60px 10%;
     text-align: center;
@@ -1602,9 +1573,6 @@ footer {
     color: #6b7280;
     line-height: 1.7;
 }
-
-
-/* ================= AUTH PAGES (Login / Signup) ================= */
 
 .auth-page {
     min-height: 100vh;
@@ -1720,7 +1688,6 @@ footer {
 }
 
 
-/* ================= RESPONSIVE — NEW COMPONENTS (900px) ================= */
 
 @media (max-width: 900px) {
 
@@ -1751,9 +1718,6 @@ footer {
         font-size: 12px;
     }
 }
-
-
-/* ================= RESPONSIVE — NEW COMPONENTS (650px) ================= */
 
 @media (max-width: 650px) {
 
