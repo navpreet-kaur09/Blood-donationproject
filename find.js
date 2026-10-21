@@ -1,34 +1,34 @@
 document.addEventListener("DOMContentLoaded", function () {
     const donors = [
-        { name: "Amit Kumar",      group: "A+",  city: "Chandigarh" },
-        { name: "Priya Singh",     group: "O+",  city: "Mohali" },
-        { name: "Rajesh Verma",    group: "B+",  city: "Panchkula" },
-        { name: "Sneha Patel",     group: "AB-", city: "Chandigarh" },
-        { name: "Harpreet Kaur",   group: "O-",  city: "Ludhiana" },
-        { name: "Gurpreet Singh",  group: "A-",  city: "Amritsar" },
-        { name: "Manish Sharma",   group: "B-",  city: "Patiala" },
-        { name: "Neha Gupta",      group: "AB+", city: "Jalandhar" },
-        { name: "Rohit Malhotra",  group: "O+",  city: "Chandigarh" },
-        { name: "Simran Arora",    group: "A+",  city: "Mohali" },
-        { name: "Vikas Yadav",     group: "B+",  city: "Delhi" },
-        { name: "Anjali Mehta",    group: "O-",  city: "Delhi" },
-        { name: "Karan Bansal",    group: "A+",  city: "Rajpura" },
-        { name: "Pooja Chauhan",   group: "AB+", city: "Panchkula" },
-        { name: "Deepak Thakur",   group: "B-",  city: "Shimla" },
-        { name: "Ritu Sethi",      group: "O+",  city: "Ludhiana" },
-        { name: "Arjun Dhillon",   group: "A-",  city: "Chandigarh" },
-        { name: "Meera Joshi",     group: "B+",  city: "Patiala" },
-        { name: "Sandeep Bhatia",  group: "AB-", city: "Amritsar" },
-        { name: "Rishika Jindal",  group: "O+",  city: "Kashmir" },
-        { name: "Gurshant",        group: "A+",  city: "Kanniyakumari " },
-        { name: "Rohit",           group: "O+",  city: "Bhatinda" },
-        { name: "navpreet kaur",   group: "O+",  city: "Shimla" }
+        { name: "Amit Kumar", group: "A+", city: "Chandigarh" },
+        { name: "Priya Singh", group: "O+", city: "Mohali" },
+        { name: "Rajesh Verma", group: "B+", city: "Panchkula" },
+        { name: "Sneha Patel", group: "AB-", city: "Chandigarh" },
+        { name: "Harpreet Kaur", group: "O-", city: "Ludhiana" },
+        { name: "Gurpreet Singh", group: "A-", city: "Amritsar" },
+        { name: "Manish Sharma", group: "B-", city: "Patiala" },
+        { name: "Neha Gupta", group: "AB+", city: "Jalandhar" },
+        { name: "Rohit Malhotra", group: "O+", city: "Chandigarh" },
+        { name: "Simran Arora", group: "A+", city: "Mohali" },
+        { name: "Vikas Yadav", group: "B+", city: "Delhi" },
+        { name: "Anjali Mehta", group: "O-", city: "Delhi" },
+        { name: "Karan Bansal", group: "A+", city: "Rajpura" },
+        { name: "Pooja Chauhan", group: "AB+", city: "Panchkula" },
+        { name: "Deepak Thakur", group: "B-", city: "Shimla" },
+        { name: "Ritu Sethi", group: "O+", city: "Ludhiana" },
+        { name: "Arjun Dhillon", group: "A-", city: "Chandigarh" },
+        { name: "Meera Joshi", group: "B+", city: "Patiala" },
+        { name: "Sandeep Bhatia", group: "AB-", city: "Amritsar" },
+        { name: "Rishika Jindal", group: "O+", city: "Kashmir" },
+        { name: "Gurshant", group: "A+", city: "Kanniyakumari " },
+        { name: "Rohit", group: "O+", city: "Bathinda" },
+        { name: "navpreet kaur", group: "O+", city: "Shimla" }
     ];
 
     const groupSelect = document.querySelector(".search-form select");
-    const cityInput   = document.getElementById("citySelect");
-    const searchBtn   = document.querySelector(".search-form button");
-    const grid        = document.querySelector(".results-grid");
+    const cityInput = document.getElementById("citySelect");
+    const searchBtn = document.querySelector(".search-form button");
+    const grid = document.querySelector(".results-grid");
 
     const cities = [...new Set(donors.map(function (d) { return d.city.trim(); }))].sort();
     cities.forEach(function (c) {
@@ -60,9 +60,9 @@ document.addEventListener("DOMContentLoaded", function () {
             card.innerHTML =
                 '<div class="blood-badge">' + d.group + '</div>' +
                 '<div class="donor-details">' +
-                    '<h3>' + d.name + '</h3>' +
-                    '<p>📍 ' + d.city + '</p>' +
-                    '<p class="available">● Available</p>' +
+                '<h3>' + d.name + '</h3>' +
+                '<p>📍 ' + d.city + '</p>' +
+                '<p class="available">● Available</p>' +
                 '</div>';
             grid.appendChild(card);
         });
@@ -70,9 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function searchDonors() {
         const group = groupSelect.value;
-        const city  = cityInput.value.trim().toLowerCase();
+        const city = cityInput.value.trim().toLowerCase();
 
-        // Hide donors until something is selected
         if (group === "" && city === "") {
             grid.style.display = "none";
             noResults.style.display = "none";
@@ -83,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const filtered = donors.filter(function (d) {
             return (group === "" || d.group === group) &&
-                   (city === "" || d.city.toLowerCase().includes(city));
+                (city === "" || d.city.toLowerCase().includes(city));
         });
 
         renderDonors(filtered);

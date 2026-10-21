@@ -13,7 +13,6 @@ signupForm.addEventListener("submit", function (e) {
     const password = passwordInputs[0].value;
     const confirmPassword = passwordInputs[1].value;
 
-    // Validation
     if (!name || !email || !phone || !bloodGroup || !password || !confirmPassword) {
         alert("Please fill all the fields.");
         return;
@@ -24,10 +23,8 @@ signupForm.addEventListener("submit", function (e) {
         return;
     }
 
-    // Get existing users
     let users = JSON.parse(localStorage.getItem("jeevanUsers")) || [];
 
-    // Check if email already exists
     const existingUser = users.find(user => user.email === email);
 
     if (existingUser) {
@@ -35,7 +32,6 @@ signupForm.addEventListener("submit", function (e) {
         return;
     }
 
-    // Create new user
     const newUser = {
         role: role,
         name: name,
@@ -45,12 +41,10 @@ signupForm.addEventListener("submit", function (e) {
         password: password
     };
 
-    // Save user
     users.push(newUser);
     localStorage.setItem("jeevanUsers", JSON.stringify(users));
 
     alert("Account created successfully!");
 
-    // Go to login
     window.location.href = "login.html";
 });

@@ -7,10 +7,8 @@ loginForm.addEventListener("submit", function (e) {
     const loginInput = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
 
-    // Get registered users
     const users = JSON.parse(localStorage.getItem("jeevanUsers")) || [];
 
-    // Find user by email or phone
     const user = users.find(
         user =>
             (user.email === loginInput || user.phone === loginInput) &&
@@ -20,7 +18,6 @@ loginForm.addEventListener("submit", function (e) {
     if (user) {
         loginMessage.textContent = "Login successful!";
 
-        // Save currently logged-in user
         localStorage.setItem("jeevanCurrentUser", JSON.stringify(user));
 
         setTimeout(() => {
