@@ -35,6 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
     noResults.style.display = "none";
     noResults.style.textAlign = "center";
     grid.after(noResults);
+    const cityCount = document.createElement("p");
+cityCount.style.textAlign = "center";
+cityCount.style.fontWeight = "600";
+cityCount.style.color = "#b91c1c";
+grid.before(cityCount);
 
     function renderDonors(list) {
         grid.innerHTML = "";
@@ -63,10 +68,22 @@ document.addEventListener("DOMContentLoaded", function () {
                    (city === "" || d.city.toLowerCase().includes(city));
         });
 
-        renderDonors(filtered);
+       renderDonors(filtered);
+
+const cityName = cityInput.value.trim();
+if (cityName === "" || filtered.length === 0) {
+    cityCount.textContent = "";
+} else {
+    const groupText = group === "" ? "" : group + " ";
+    const word = filtered.length === 1 ? "donor" : "donors";
+    cityCount.textContent = filtered.length + " " + groupText + word + " available in " + cityName;
+}
     }
 
     searchBtn.addEventListener("click", searchDonors);
+    groupSelect.addEventListener("change", searchDonors);
+cityInput.addEventListener("input", searchDonors);
+
 
     cityInput.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
