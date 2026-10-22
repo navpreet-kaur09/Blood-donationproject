@@ -1,239 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Jeevan — Blood Donation Portal</title>
+    <link rel="icon" type="image/png" href="logo1.png">
     <link rel="stylesheet" href="style.css">
     <script src="donate.js"></script>
+    <link rel="stylesheet" href="loader.css">
+    <script src="find.js"></script>
 </head>
+
 <body>
-    
 
-<div class="loader-overlay" id="loader">
-        <div class="loader-content">
-            <div class="loader-icon">🩸</div>
-            <h2 class="loader-title">Jeevan</h2>
-            <div class="loader-bar-track">
-                <div class="loader-bar-fill"></div>
-            </div>
-            <p class="loader-text">Loading</p>
+    <!-- LOADER: simple pulsing drop + dots (pure CSS) -->
+    <div class="jv-loader" id="loader">
+        <div class="jv-loader-box">
+            <svg class="jv-drop" viewBox="0 0 200 260" aria-hidden="true">
+                <defs>
+                    <linearGradient id="jvDropGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#ffffff" />
+                        <stop offset="1" stop-color="#fecaca" />
+                    </linearGradient>
+                </defs>
+                <path d="M100 10C100 10 20 110 20 165a80 80 0 0 0 160 0C180 110 100 10 100 10Z"
+                    fill="url(#jvDropGrad)" />
+                <ellipse cx="68" cy="150" rx="9" ry="22" fill="#8a0303" opacity=".25" transform="rotate(18 68 150)" />
+            </svg>
+            <h2 class="jv-loader-title">Jeevan</h2>
+            <div class="jv-dots"><span></span><span></span><span></span></div>
         </div>
     </div>
 
-<header class="navbar">
-    <div class="logo">
-        <img src="logo1.png"
-             alt="Jeevan"
-             class="logo-img">
-    </div>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="find_blood.html">Find Blood</a>
-        <a href="donate.html">Donate Blood</a>
-        <a href="Hospital_Dashboard.html">Hospital Dashboard</a>
-        <a href="about.html">About</a>
-    </nav>
-</header>
-
-<section class="hero">
-
-    <div class="hero-content">
-        <h1 class="hero-heading">
-            <span class="script-text">Khoon Ka Rishta</span>
-        </h1>
-
-        <p>
-            Donate blood. Help someone in need.
-            Your small contribution can make a
-            life-changing difference.
-        </p>
-
-        <div class="hero-buttons">
-            <a href="find_blood.html" class="btn primary">
-                Find Blood
-            </a>
-
-            <a href="donate.html" class="btn secondary">
-                Become a Donor
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo1.png" alt="Jeevan" class="logo-img">
             </a>
         </div>
-    </div>
 
-    <div class="hero-image">
-        <div class="blood-drop">
-            🩸
-        </div>
-    </div>
+        <button id="menuBtn">☰</button>
 
-</section>
+        <nav id="navbar">
+            <a href="index.html">Home</a>
+            <a href="find_blood.html">Find Blood</a>
+            <a href="donate.html">Donate Blood</a>
+            <a href="Hospital_Dashboard.html">Hospital Dashboard</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
 
+    <section class="hero">
 
-
-<section class="stats">
-
-    <div class="stat-card">
-        <h2>10K+</h2>
-        <p>Registered Donors</p>
-    </div>
-
-    <div class="stat-card">
-        <h2>5K+</h2>
-        <p>Lives Supported</p>
-    </div>
-
-    <div class="stat-card">
-        <h2>20+</h2>
-        <p>Partner Hospitals</p>
-    </div>
-
-    <div class="stat-card">
-        <h2>8</h2>
-        <p>Blood Groups</p>
-    </div>
-
-</section>
-
-<section class="how-it-works">
-
-    <h2>How It Works</h2>
-
-    <p class="section-description">
-        Three simple steps can help save a life.
-    </p>
-
-    <div class="steps">
-
-        <div class="step">
-            <div class="step-number">01</div>
-
-            <h3>Register</h3>
+        <div class="hero-content">
+            <h1 class="hero-heading">
+                <span class="script-text">Khoon Ka Rishta</span>
+            </h1>
 
             <p>
-                Register yourself as a blood donor
-                and provide your basic information.
-            </p>
-        </div>
-
-        <div class="step">
-            <div class="step-number">02</div>
-
-            <h3>Find Blood</h3>
-
-            <p>
-                Search for available blood groups
-                near your location.
-            </p>
-        </div>
-
-        <div class="step">
-            <div class="step-number">03</div>
-
-            <h3>Save a Life</h3>
-
-            <p>
-                Connect with donors and help someone
-                receive the blood they need.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<section class="reviews">
-
-    <h2>What Our Users Say</h2>
-
-    <p class="section-description">
-        Real experiences from people who helped make a difference.
-    </p>
-
-    <div class="review-cards">
-
-        <div class="review-card">
-            <div class="stars">★★★★★</div>
-
-            <p>
-                "Jeevan made it incredibly easy to find
-                a donor when my family needed blood urgently.
-                The process was simple and quick."
+                Donate blood. Help someone in need.
+                Your small contribution can make a
+                life-changing difference.
             </p>
 
-            <div class="review-user">
-                <div class="user-avatar">A</div>
+            <div class="hero-buttons">
+                <a href="find_blood.html" class="btn primary">
+                    Find Blood
+                </a>
 
-                <div>
-                    <h3>Aditya Sharma</h3>
-                    <span>Blood Recipient</span>
-                </div>
+                <a href="donate.html" class="btn secondary">
+                    Become a Donor
+                </a>
             </div>
         </div>
 
-        <div class="review-card">
-            <div class="stars">★★★★★</div>
-
-            <p>
-                "I registered as a donor and was able to
-                connect with someone who needed my blood.
-                Knowing that my donation helped someone
-                feels amazing."
-            </p>
-
-            <div class="review-user">
-                <div class="user-avatar">R</div>
-
-                <div>
-                    <h3>Riya Mehta</h3>
-                    <span>Blood Donor</span>
-                </div>
+        <div class="hero-image">
+            <div class="blood-drop">
+                🩸
             </div>
         </div>
 
-        <div class="review-card">
-            <div class="stars">★★★★★</div>
+    </section>
 
-            <p>
-                "The interface is simple and easy to use.
-                Finding the required blood group and
-                nearby availability took only a few minutes."
-            </p>
+    <section class="stats">
 
-            <div class="review-user">
-                <div class="user-avatar">K</div>
-
-                <div>
-                    <h3>Karan Verma</h3>
-                    <span>Blood Recipient</span>
-                </div>
-            </div>
+        <div class="stat-card">
+            <h2>10K+</h2>
+            <p>Registered Donors</p>
         </div>
 
-    </div>
+        <div class="stat-card">
+            <h2>5K+</h2>
+            <p>Lives Supported</p>
+        </div>
 
-</section>
+        <div class="stat-card">
+            <h2>20+</h2>
+            <p>Partner Hospitals</p>
+        </div>
 
-<section class="emergency">
+        <div class="stat-card">
+            <h2>8</h2>
+            <p>Blood Groups</p>
+        </div>
 
-    <div>
-        <h2>Need Blood Urgently?</h2>
+    </section>
 
-        <p>
-            Find available blood donors and
-            blood banks near you.
+    <section class="how-it-works">
+
+        <h2>How It Works</h2>
+
+        <p class="section-description">
+            Three simple steps can help save a life.
         </p>
-    </div>
 
-    <a href="find_blood.html" class="btn emergency-btn">
-        Find Blood Now
-    </a>
+        <div class="steps">
 
-</section>
+            <div class="step">
+                <div class="step-number">01</div>
 
+                <h3>Register</h3>
 
+                <p>
+                    Register yourself as a blood donor
+                    and provide your basic information.
+                </p>
+            </div>
 
+            <div class="step">
+                <div class="step-number">02</div>
+
+                <h3>Find Blood</h3>
+
+                <p>
+                    Search for available blood groups
+                    near your location.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">03</div>
+
+                <h3>Save a Life</h3>
+
+                <p>
+                    Connect with donors and help someone
+                    receive the blood they need.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="reviews">
+
+        <h2>What Our Users Say</h2>
+
+        <p class="section-description">
+            Real experiences from people who helped make a difference.
+        </p>
+
+        <div class="review-cards">
+
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+
+                <p>
+                    "Jeevan made it incredibly easy to find
+                    a donor when my family needed blood urgently.
+                    The process was simple and quick."
+                </p>
+
+                <div class="review-user">
+                    <div class="user-avatar">A</div>
+
+                    <div>
+                        <h3>Aditya Sharma</h3>
+                        <span>Blood Recipient</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+
+                <p>
+                    "I registered as a donor and was able to
+                    connect with someone who needed my blood.
+                    Knowing that my donation helped someone
+                    feels amazing."
+                </p>
+
+                <div class="review-user">
+                    <div class="user-avatar">R</div>
+
+                    <div>
+                        <h3>Riya Mehta</h3>
+                        <span>Blood Donor</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+
+                <p>
+                    "The interface is simple and easy to use.
+                    Finding the required blood group and
+                    nearby availability took only a few minutes."
+                </p>
+
+                <div class="review-user">
+                    <div class="user-avatar">K</div>
+
+                    <div>
+                        <h3>Karan Verma</h3>
+                        <span>Blood Recipient</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="emergency">
+
+        <div>
+            <h2>Need Blood Urgently?</h2>
+
+            <p>
+                Find available blood donors and
+                blood banks near you.
+            </p>
+        </div>
+
+        <a href="find_blood.html" class="btn emergency-btn">
+            Find Blood Now
+        </a>
+
+    </section>
+    <footer> &copy 2026 Jeevan. Every Drop Counts.</footer>
+
+    <script src="index.js"></script>
 </body>
+
 </html>
