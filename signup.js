@@ -8,7 +8,7 @@ signupForm.addEventListener("submit", function (e) {
     const email = document.querySelector('input[type="email"]').value.trim();
     const phone = document.querySelector('input[type="tel"]').value.trim();
     const bloodGroup = document.querySelector("select").value;
-
+const city = document.getElementById("signupCity").value.trim();
     const passwordInputs = document.querySelectorAll('input[type="password"]');
     const password = passwordInputs[0].value;
     const confirmPassword = passwordInputs[1].value;
@@ -43,6 +43,11 @@ signupForm.addEventListener("submit", function (e) {
 
     users.push(newUser);
     localStorage.setItem("jeevanUsers", JSON.stringify(users));
+    if (role === "donor") {
+    let donorList = JSON.parse(localStorage.getItem("jeevanDonors")) || [];
+    donorList.push({ name: name, group: bloodGroup, city: city });
+    localStorage.setItem("jeevanDonors", JSON.stringify(donorList));
+}
 
     alert("Account created successfully!");
 

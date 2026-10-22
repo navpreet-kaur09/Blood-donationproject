@@ -24,6 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
         { name: "Rohit", group: "O+", city: "Bathinda" },
         { name: "navpreet kaur", group: "O+", city: "Shimla" }
     ];
+    try {
+    const savedDonors = JSON.parse(localStorage.getItem("jeevanDonors")) || [];
+    donors.push(...savedDonors);
+} catch (err) {}
 
     const groupSelect = document.querySelector(".search-form select");
     const cityInput = document.getElementById("citySelect");
