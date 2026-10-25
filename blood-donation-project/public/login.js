@@ -1,3 +1,4 @@
+
 const loginForm = document.getElementById("loginForm");
 const loginMessage = document.getElementById("loginMessage");
 
@@ -14,7 +15,7 @@ if (loginForm && loginMessage) {
             if (!Array.isArray(users)) throw new Error("Saved account data must be a list.");
 
             const user = users.find(function (account) {
-                return (account.email.toLowerCase() === loginInput || account.phone === loginInput) &&
+                return ((account.email && account.email.toLowerCase() === loginInput) || account.phone === loginInput) &&
                     account.password === password;
             });
 
@@ -24,7 +25,9 @@ if (loginForm && loginMessage) {
                 return;
             }
 
-            localStorage.setItem("jeevanCurrentUser", JSON.stringify(user));
+            const currentUser = { ...user };
+            delete currentUser.password;
+            localStorage.setItem("jeevanCurrentUser", JSON.stringify(currentUser));
             loginMessage.textContent = "Login successful!";
             loginMessage.className = "au-msg success";
             window.setTimeout(function () {

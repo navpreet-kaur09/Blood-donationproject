@@ -7,7 +7,8 @@ if (signupForm) {
     const roleInputs = document.querySelectorAll('input[name="role"]');
 
     function updateAgeRequirement() {
-        const isDonor = document.querySelector('input[name="role"]:checked').value === "donor";
+        const selectedRole = document.querySelector('input[name="role"]:checked');
+        const isDonor = selectedRole && selectedRole.value === "donor";
         ageInput.required = isDonor;
         ageInput.setAttribute("aria-required", String(isDonor));
     }
@@ -33,7 +34,12 @@ if (signupForm) {
     signupForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const role = document.querySelector('input[name="role"]:checked').value;
+        const selectedRole = document.querySelector('input[name="role"]:checked');
+        if (!selectedRole) {
+            showMessage("Please choose whether you want to donate or find blood.", "error");
+            return;
+        }
+        const role = selectedRole.value;
         const name = document.getElementById("signupName").value.trim();
         const email = document.getElementById("signupEmail").value.trim().toLowerCase();
         const phone = document.getElementById("signupPhone").value.trim();
@@ -66,7 +72,7 @@ if (signupForm) {
 
         try {
             const users = readArray("jeevanUsers");
-            if (users.some(function (user) { return user.email.toLowerCase() === email; })) {
+            if (users.some(function (user) { return user.email && user.email.toLowerCase() === email; })) {
                 showMessage("An account with this email already exists.", "error");
                 return;
             }
@@ -77,7 +83,17 @@ if (signupForm) {
 
             if (role === "donor") {
                 const donorList = readArray("jeevanDonors");
-                donorList.push({ name, group: bloodGroup, city, age, gender, phone });
+                donorList.push({
+                    id: "donor_" + Date.now(),
+                    name,
+                    email,
+                    group: bloodGroup,
+                    city,
+                    age,
+                    gender,
+                    phone,
+                    available: true
+                });
                 localStorage.setItem("jeevanDonors", JSON.stringify(donorList));
             }
 

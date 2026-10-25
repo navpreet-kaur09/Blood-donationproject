@@ -6,6 +6,7 @@
     <title>Find Blood — Jeevan</title>
     <link rel="icon" type="image/png" href="logo1.png">
     <link rel="stylesheet" href="style.css">
+    <script src="demo-data.js"></script>
     <script src="find.js"></script>
 </head>
 <body>
@@ -41,8 +42,8 @@
 
 <section class="search-section">
 
-    <form class="search-form">
-        <select>
+    <div class="search-form" aria-label="Filter donors">
+        <select aria-label="Filter by blood group">
             <option value="">Select Blood Group</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
@@ -54,56 +55,16 @@
             <option value="O-">O-</option>
         </select>
 
-      <select id="citySelect">
+      <select id="citySelect" aria-label="Filter by city">
     <option value="">Select City</option>
 </select>
-
-        <button type="button" class="btn primary">Search</button>
-    </form>
+    </div>
 
     <h3 class="results-heading">Available Donors</h3>
 
-    <div class="results-grid">
-
-        <div class="donor-card">
-            <div class="blood-badge">A+</div>
-            <div class="donor-details">
-                <h3>Amit Kumar</h3>
-                <p>📍 Chandigarh</p>
-                <p class="available">● Available</p>
-            </div>
-        </div>
-
-        <div class="donor-card">
-            <div class="blood-badge">O+</div>
-            <div class="donor-details">
-                <h3>Priya Singh</h3>
-                <p>📍 Mohali</p>
-                <p class="available">● Available</p>
-            </div>
-        </div>
-
-        <div class="donor-card">
-            <div class="blood-badge">B+</div>
-            <div class="donor-details">
-                <h3>Rajesh Verma</h3>
-                <p>📍 Panchkula</p>
-                <p class="available">● Available</p>
-            </div>
-        </div>
-
-        <div class="donor-card">
-            <div class="blood-badge">AB-</div>
-            <div class="donor-details">
-                <h3>Sneha Patel</h3>
-                <p>📍 Chandigarh</p>
-                <p class="available">● Available</p>
-            </div>
-        </div>
-
-    </div>
-
-    <p class="demo-note">These are sample results. Live search will be available soon.</p>
+    <div class="results-grid" aria-live="polite"></div>
+    <p class="demo-note">Demo donors use fictional names and have no contact details. Registered donors appear here too. Demo hospital IDs: HOSP-101, PGI-CHD-102, AIIMS-DEL-01, GOV-HOSP-2024, JEEVAN-CHD-01, JEEVAN-MOH-02, JEEVAN-LDH-03.</p>
+    <p class="demo-note">Requests are shared with the selected hospital dashboard on this browser.</p>
 
 </section>
 

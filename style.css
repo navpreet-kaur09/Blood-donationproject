@@ -130,9 +130,6 @@ nav a.active {
 
     transition: 0.3s;
 }
-.search-form button {
-    display: none;
-}
 .loader-overlay {
     position: fixed;
     top: 0;
@@ -1047,7 +1044,7 @@ footer {
     display: flex;
     gap: 12px;
     max-width: 650px;
-    margin: 0 auto 50px;
+    margin: 0 auto 36px;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -1073,13 +1070,6 @@ footer {
     box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
 }
 
-.search-form .btn {
-    min-width: 130px;
-    cursor: pointer;
-    border: none;
-    font-family: Arial, sans-serif;
-}
-
 .results-heading {
     font-size: 22px;
     color: #111827;
@@ -1101,6 +1091,7 @@ footer {
     border-radius: 12px;
     border: 1px solid #e5e7eb;
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
     gap: 15px;
     transition: 0.3s;
@@ -1157,6 +1148,8 @@ footer {
 .donor-request-form {
     display: grid;
     gap: 10px;
+    flex-basis: 100%;
+    width: 100%;
     margin-top: 14px;
     padding: 14px;
     background: #fff7f7;
@@ -1214,6 +1207,12 @@ footer {
     font-size: 13px;
     color: #9ca3af;
     font-style: italic;
+}
+
+.donor-list-message {
+    margin: 22px auto;
+    color: #6b7280;
+    text-align: center;
 }
 
 .compat-section {

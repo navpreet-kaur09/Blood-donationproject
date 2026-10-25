@@ -42,7 +42,24 @@ if (donorRegistrationForm) {
       const donors = JSON.parse(savedDonors);
       if (!Array.isArray(donors)) throw new Error("Saved donor data must be a list.");
 
-      donors.push({ name, age, email, phone, group: bloodGroup, city });
+      const existingDonor = donors.find(function (donor) {
+        return donor.email && donor.email.toLowerCase() === email;
+      });
+      if (existingDonor) {
+        showMessage("This email is already registered as a donor.", true);
+        return;
+      }
+
+      donors.push({
+        id: "donor_" + Date.now(),
+        name,
+        age,
+        email,
+        phone,
+        group: bloodGroup,
+        city,
+        available: true
+      });
       localStorage.setItem("jeevanDonors", JSON.stringify(donors));
       showMessage("Thank you, " + name + "! You are registered as a donor.", false);
       donorRegistrationForm.reset();

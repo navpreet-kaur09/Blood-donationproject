@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,33 +87,33 @@
         <div class="form-card">
             <h2>Donor Registration</h2>
 
-            <form>
+            <form id="donorRegistrationForm">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" id="fullName" placeholder="Enter your name">
+                        <input type="text" id="fullName" placeholder="Enter your name" required>
                     </div>
 
                     <div class="form-group">
                         <label>Age</label>
-                        <input type="number" id="age" placeholder="Your age">
+                        <input type="number" id="age" min="1" max="120" placeholder="Your age" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="email" placeholder="your@email.com">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" id="phone" placeholder="Enter phone number">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="Enter phone number" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Blood Group</label>
-                        <select id="bloodGroup">
+                        <label for="bloodGroup">Blood Group</label>
+                        <select id="bloodGroup" required>
                             <option value="">Select Blood Group</option>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
@@ -126,12 +128,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label>City</label>
-                    <input type="text" id="city" placeholder="Your city">
+                    <label for="city">City</label>
+                    <input type="text" id="city" placeholder="Your city" required>
                 </div>
 
-                <button type="button" class="form-btn" id="registerBtn">Register as Donor</button>
-                <p id="message"></p>
+                <button type="submit" class="form-btn" id="registerBtn">Register as Donor</button>
+                <p id="message" role="status"></p>
             </form>
         </div>
     </section>
@@ -175,3 +177,5 @@
 </body>
 
 </html>
+
+donate.html

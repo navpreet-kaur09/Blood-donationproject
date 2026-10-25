@@ -1,5 +1,3 @@
-js
-
 document.addEventListener("DOMContentLoaded", function () {
     "use strict";
 
@@ -12,12 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         REQUESTS: "jeevanBloodRequests"
     };
 
-    const DEMO_HOSPITALS = {
-        "HOSP-101": "Govt. Medical College & Hospital (GMCH-32)",
-        "PGI-CHD-102": "Postgraduate Institute of Medical Education & Research (PGIMER)",
-        "AIIMS-DEL-01": "All India Institute of Medical Sciences (AIIMS Delhi)",
-        "GOV-HOSP-2024": "District Civil Hospital, Mohali"
-    };
+    const DEMO_HOSPITALS = window.JeevanDemoData.hospitals;
 
     const ALL_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
@@ -33,14 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const DEFAULT_CAMPS = [
         { id: "camp_1", name: "Community Lifesaver Blood Drive", organizer: "Rotary Club & GMCH", date: getFutureDate(8), timing: "09:00 AM – 04:00 PM", venue: "Sector 17 Plaza, Chandigarh", target: 120, status: "Scheduled" },
         { id: "camp_2", name: "Youth Blood Donation Drive", organizer: "NSS & Jeevan Team", date: getFutureDate(18), timing: "10:00 AM – 03:30 PM", venue: "Panjab University Campus", target: 80, status: "Scheduled" }
-    ];
-
-    const DEFAULT_DONORS = [
-        { name: "Amit Kumar", group: "A+", phone: "98765-43210", city: "Chandigarh", lastDonation: "2026-08-15", status: "Eligible" },
-        { name: "Priya Singh", group: "O+", phone: "98123-45678", city: "Mohali", lastDonation: "2026-09-20", status: "Donated (Resting)" },
-        { name: "Rajesh Verma", group: "B+", phone: "99887-65432", city: "Panchkula", lastDonation: "2026-05-10", status: "Eligible" },
-        { name: "Sneha Patel", group: "AB-", phone: "97812-34567", city: "Chandigarh", lastDonation: "2026-07-04", status: "Eligible" },
-        { name: "Harpreet Kaur", group: "O-", phone: "98555-12345", city: "Ludhiana", lastDonation: "2026-10-01", status: "Donated (Resting)" }
     ];
 
     const verificationForm = document.getElementById("hospitalVerificationForm");
@@ -283,32 +268,48 @@ document.addEventListener("DOMContentLoaded", function () {
             card.className = "blood-request-card";
             const donorPhone = request.donorPhone ? String(request.donorPhone) : "";
             const requesterPhone = request.requesterPhone ? String(request.requesterPhone) : "";
+            const donorEmail = request.donorEmail ? String(request.donorEmail) : "";
+            const requesterEmail = request.requesterEmail ? String(request.requesterEmail) : "";
             const donorPhoneLink = donorPhone
                 ? `<a href="tel:${escapeHTML(donorPhone.replace(/[^\d+]/g, ""))}">${escapeHTML(donorPhone)}</a>`
                 : "No donor phone saved; contact the requester for help.";
             const requesterPhoneLink = requesterPhone
                 ? `<a href="tel:${escapeHTML(requesterPhone.replace(/[^\d+]/g, ""))}">${escapeHTML(requesterPhone)}</a>`
                 : "Not provided";
-            const statusText = request.status === "Contacted" ? "Contacted" : "New";
-            const statusClass = request.status === "Contacted" ? "eligible" : "scheduled";
+            const nextStatus = {
+                New: "Contacted",
+                Contacted: "Connected",
+                Connected: "Completed"
+            }[request.status];
+            const statusClass = {
+                New: "scheduled",
+                Contacted: "eligible",
+                Connected: "available",
+                Completed: "completed"
+            }[request.status] || "scheduled";
             card.innerHTML = `
                 <div class="blood-request-heading">
                     <div>
-                        <h4>${escapeHTML(request.donorGroup || "Blood")} request for ${escapeHTML(request.donorName || "donor")}</h4>
-                        <span class="status-pill ${statusClass}">${statusText}</span>
+                        <h4>${escapeHTML(request.donorGroup || "Blood")} request from ${escapeHTML(request.requesterName || "requester")} for ${escapeHTML(request.donorName || "donor")}</h4>
+                        <span class="status-pill ${statusClass}">${escapeHTML(request.status || "New")}</span>
                     </div>
                     <span class="blood-chip">${escapeHTML(request.donorGroup || "—")}</span>
                 </div>
                 <div class="blood-request-details">
+                    <p><strong>Patient:</strong> ${escapeHTML(request.patientName || request.requesterName || "Not provided")}</p>
                     <p><strong>Requester:</strong> ${escapeHTML(request.requesterName || "Not provided")}</p>
                     <p><strong>Call requester:</strong> ${requesterPhoneLink}</p>
+                    ${requesterEmail ? `<p><strong>Requester email:</strong> <a href="mailto:${escapeHTML(requesterEmail)}">${escapeHTML(requesterEmail)}</a></p>` : ""}
+                    <p><strong>Requester city:</strong> ${escapeHTML(request.requesterCity || "Not specified")}</p>
+                    <p><strong>Donor:</strong> ${escapeHTML(request.donorName || "Not provided")} (${escapeHTML(request.donorGroup || "—")})</p>
                     <p><strong>Contact donor:</strong> ${donorPhoneLink}</p>
+                    ${donorEmail ? `<p><strong>Donor email:</strong> <a href="mailto:${escapeHTML(donorEmail)}">${escapeHTML(donorEmail)}</a></p>` : ""}
                     <p><strong>Units needed:</strong> ${Number(request.units) || 1}</p>
                     <p><strong>Needed by:</strong> ${escapeHTML(request.neededBy || "Not specified")}</p>
                     <p><strong>Donor location:</strong> ${escapeHTML(request.donorCity || "Not specified")}</p>
                     ${request.details ? `<p><strong>Details:</strong> ${escapeHTML(request.details)}</p>` : ""}
                 </div>
-                ${request.status === "New" ? `<button type="button" class="action-btn success" data-action="mark-request-contacted" data-id="${escapeHTML(request.id)}">Mark as contacted</button>` : ""}
+                ${nextStatus ? `<button type="button" class="action-btn success" data-action="update-request-status" data-status="${nextStatus}" data-id="${escapeHTML(request.id)}">Mark as ${nextStatus.toLowerCase()}</button>` : ""}
             `;
             bloodRequestsList.appendChild(card);
         });
@@ -316,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (bloodRequestsList) {
         bloodRequestsList.addEventListener("click", function (event) {
-            const button = event.target.closest("button[data-action='mark-request-contacted']");
+            const button = event.target.closest("button[data-action='update-request-status']");
             if (!button) return;
 
             const requests = loadData(KEYS.REQUESTS, []);
@@ -326,8 +327,15 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             const request = requests.find(item => item.id === button.getAttribute("data-id"));
             if (!request || request.hospitalId !== activeHospitalSession.hospitalId) return;
-            request.status = "Contacted";
-            request.contactedAt = new Date().toISOString();
+            const allowedStatuses = {
+                New: "Contacted",
+                Contacted: "Connected",
+                Connected: "Completed"
+            };
+            const nextStatus = allowedStatuses[request.status];
+            if (nextStatus !== button.getAttribute("data-status")) return;
+            request.status = nextStatus;
+            request.statusUpdatedAt = new Date().toISOString();
             if (saveData(KEYS.REQUESTS, requests)) renderBloodRequests();
         });
     }
@@ -355,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         filtered.forEach(item => {
             const daysLeft = getDaysDiff(item.expiry);
-            let statusPill = "";
+            let statusPill;
 
             if (daysLeft < 0) statusPill = `<span class="status-pill expired">⚠️ Expired (${Math.abs(daysLeft)}d ago)</span>`;
             else if (daysLeft <= 7) statusPill = `<span class="status-pill expired">⏳ Expiring (${daysLeft}d)</span>`;
@@ -564,16 +572,33 @@ document.addEventListener("DOMContentLoaded", function () {
             .map(u => ({
                 name: u.name || "Anonymous Donor",
                 group: u.bloodGroup || "O+",
-                phone: u.phone ? u.phone.replace(/(\d{3})\d{4}(\d{3})/, "$1-****-$2") : "Registered Donor",
-                city: "Registered User",
+                email: u.email || "",
+                phone: u.phone || "Not provided",
+                city: u.city || "Not provided",
                 lastDonation: "Never Donated"
             }));
 
+        const currentRecords = loadData("jeevanDonors", []);
+        const legacyRecords = loadData("donors", []);
+        const donorRecords = (Array.isArray(currentRecords) ? currentRecords : [])
+            .concat(Array.isArray(legacyRecords) ? legacyRecords : []);
         const combined = [...registered];
-        const names = new Set(registered.map(d => d.name.toLowerCase()));
-
-        DEFAULT_DONORS.forEach(d => {
-            if (!names.has(d.name.toLowerCase())) combined.push(d);
+        donorRecords.forEach(donor => {
+            const group = donor && (donor.group || donor.bloodGroup);
+            if (!donor || !donor.name || !group) return;
+            const duplicate = combined.some(d => d.name.toLowerCase() === donor.name.toLowerCase() ||
+                (d.email && donor.email && d.email.toLowerCase() === donor.email.toLowerCase()));
+            if (!duplicate) {
+                combined.push({
+                    name: donor.name,
+                    group,
+                    email: donor.email || "",
+                    phone: donor.phone || "Not provided",
+                    city: donor.city || "Not provided",
+                    lastDonation: "Never Donated",
+                    isDemo: donor.isDemo === true
+                });
+            }
         });
 
         const statuses = loadData(KEYS.DONOR_STATUS, {});
@@ -609,7 +634,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const tr = document.createElement("tr");
             tr.innerHTML = `
-                <td><strong>${escapeHTML(d.name)}</strong></td>
+                <td><strong>${escapeHTML(d.name)}</strong>${d.isDemo ? '<br><small class="demo-disclaimer-pill">Demo only</small>' : ""}</td>
                 <td><span class="blood-chip">${escapeHTML(d.group)}</span></td>
                 <td>${escapeHTML(d.phone)} <br><small style="color:#6b7280;">${escapeHTML(d.city)}</small></td>
                 <td>${escapeHTML(d.lastDonation || "None recorded")}</td>

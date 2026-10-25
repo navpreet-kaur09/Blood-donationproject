@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 
 const LOADER_DURATION = 1800; // ms, same as your old loader.js
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [percent, setPercent] = useState(0);
+  const [percent, setPercent] = useState(() => (
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 100 : 0
+  ));
+  const [camps, setCamps] = useState([]);
+  const [campLoadError, setCampLoadError] = useState(false);
 
   useEffect(() => {
     const reduceMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
-
-    if (reduceMotion) {
-      setPercent(100);
-    }
 
     let start = null;
     let frameId;
@@ -41,6 +40,40 @@ function App() {
       clearTimeout(timer);
       cancelAnimationFrame(frameId);
     };
+  }, []);
+
+  useEffect(() => {
+    function loadCamps() {
+      try {
+        const saved = localStorage.getItem('jeevanHospitalCamps');
+        const allCamps = saved ? JSON.parse(saved) : [];
+        if (!Array.isArray(allCamps)) {
+          throw new Error('Saved camp data must be a list.');
+        }
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const upcoming = allCamps
+          .filter((camp) => {
+            const date = new Date(`${camp.date}T00:00:00`);
+            return camp.name && camp.date && !Number.isNaN(date.getTime()) && date >= today;
+          })
+          .sort((first, second) => (
+            new Date(`${first.date}T00:00:00`) - new Date(`${second.date}T00:00:00`)
+          ));
+
+        setCamps(upcoming);
+        setCampLoadError(false);
+      } catch (error) {
+        console.error('[Jeevan] Could not load upcoming camps.', error);
+        setCamps([]);
+        setCampLoadError(true);
+      }
+    }
+
+    loadCamps();
+    window.addEventListener('storage', loadCamps);
+    return () => window.removeEventListener('storage', loadCamps);
   }, []);
 
   return (
@@ -124,6 +157,7 @@ function App() {
           <a href="/Hospital_Dashboard.html">Hospital Dashboard</a>
           <a href="/about.html">About</a>
         </nav>
+        <a href="/login.html" className="nav-login-btn">Login</a>
       </header>
 
       <main>
@@ -152,6 +186,30 @@ function App() {
           <div className="hero-image">
             <div className="blood-drop">🩸</div>
           </div>
+        </section>
+
+        <section className="home-camps" aria-labelledby="upcomingCampsHeading">
+          <h2 id="upcomingCampsHeading">Upcoming Blood Donation Camps</h2>
+          <p className="section-description">Find a nearby camp and take part in saving lives.</p>
+          <div className="camps-card-grid" aria-live="polite">
+            {camps.map((camp) => (
+              <article className="camp-item-card" key={camp.id || `${camp.name}-${camp.date}`}>
+                <h3>{camp.name}</h3>
+                <div className="camp-details-list">
+                  <p>Organizer: <span>{camp.organizer || 'Not specified'}</span></p>
+                  <p>Date: <span>{new Date(`${camp.date}T00:00:00`).toLocaleDateString()}</span></p>
+                  <p>Time: <span>{camp.timing || 'To be announced'}</span></p>
+                  <p>Venue: <span>{camp.venue || 'To be announced'}</span></p>
+                </div>
+              </article>
+            ))}
+          </div>
+          {camps.length === 0 && (
+            <p className="home-camps-empty">
+              {campLoadError ? 'Upcoming camps could not be loaded from this browser.' : 'No upcoming camps have been published yet.'}
+            </p>
+          )}
+          <a href="/Hospital_Dashboard.html" className="btn primary">Hospital Camp Dashboard</a>
         </section>
 
         <section className="stats">
