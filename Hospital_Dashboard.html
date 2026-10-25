@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+Rohit
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -137,9 +138,27 @@
             <button type="button" class="hospital-tab-link" data-tab="tab-donors">
                 👥 Donor Status Management
             </button>
+            <button type="button" class="hospital-tab-link" data-tab="tab-requests">
+                📩 Blood Requests <span id="bloodRequestCount" class="request-count">0</span>
+            </button>
             <button type="button" class="hospital-tab-link" data-tab="tab-overview">
                 📊 Live Stock Overview
             </button>
+        </div>
+
+        <div class="hospital-tab-content" id="tab-requests">
+            <div class="dashboard-card">
+                <div class="card-title-bar">
+                    <h3>📩 Blood requests for this hospital</h3>
+                    <p>Requests sent from Find Blood are stored in this browser and shown here.</p>
+                </div>
+                <div id="bloodRequestsList" class="blood-requests-list"></div>
+                <div id="bloodRequestsEmptyState" class="empty-state-notice" style="display: none;">
+                    <div class="empty-state-icon">📩</div>
+                    <h4>No blood requests yet</h4>
+                    <p id="bloodRequestsEmptyMessage">Requests sent to this hospital from the same browser will appear here.</p>
+                </div>
+            </div>
         </div>
 
         <div class="hospital-tab-content active" id="tab-inventory">

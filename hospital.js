@@ -1,3 +1,5 @@
+js
+
 document.addEventListener("DOMContentLoaded", function () {
     "use strict";
 
@@ -6,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
         CAMPS: "jeevanHospitalCamps",
         DONOR_STATUS: "jeevanHospitalDonorStatus",
         SESSION: "jeevanHospitalSession",
-        USERS: "jeevanUsers"
+        USERS: "jeevanUsers",
+        REQUESTS: "jeevanBloodRequests"
     };
 
     const DEMO_HOSPITALS = {
@@ -93,6 +96,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const donorStatusFilter = document.getElementById("donorStatusFilter");
 
     const bloodSummaryGrid = document.getElementById("bloodSummaryGrid");
+    const bloodRequestsList = document.getElementById("bloodRequestsList");
+    const bloodRequestsEmptyState = document.getElementById("bloodRequestsEmptyState");
+    const bloodRequestsEmptyMessage = document.getElementById("bloodRequestsEmptyMessage");
+    const bloodRequestCount = document.getElementById("bloodRequestCount");
+    let activeHospitalSession = null;
 
     function loadData(key, fallback) {
         try {
@@ -177,6 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function activateDashboard(session) {
         if (!managementSection) return;
+        activeHospitalSession = session;
         if (displayHospitalName) displayHospitalName.textContent = session.hospitalName;
         if (displayHospitalId) displayHospitalId.textContent = `ID: ${session.hospitalId}`;
         managementSection.style.display = "block";
@@ -189,6 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
         renderDonorsList();
         renderOverviewGrid();
         updateSummaryStats();
+        renderBloodRequests();
     }
 
     if (exitHospitalBtn) {
@@ -240,8 +250,87 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             if (tabId === "tab-overview") renderOverviewGrid();
+            if (tabId === "tab-requests") renderBloodRequests();
         });
     });
+
+    window.addEventListener("storage", function (event) {
+        if (event.key === KEYS.REQUESTS) renderBloodRequests();
+    });
+
+    function renderBloodRequests() {
+        if (!bloodRequestsList || !activeHospitalSession) return;
+
+        const allRequests = loadData(KEYS.REQUESTS, []);
+        const storedRequests = Array.isArray(allRequests) ? allRequests.filter(Boolean) : [];
+        const requests = storedRequests.filter(request => request.hospitalId === activeHospitalSession.hospitalId);
+        const otherHospitalIds = [...new Set(storedRequests
+            .filter(request => request.hospitalId !== activeHospitalSession.hospitalId)
+            .map(request => request.hospitalId)
+            .filter(Boolean))];
+        const newCount = requests.filter(request => request.status === "New").length;
+        if (bloodRequestCount) bloodRequestCount.textContent = newCount;
+        bloodRequestsList.replaceChildren();
+        if (bloodRequestsEmptyState) bloodRequestsEmptyState.style.display = requests.length === 0 ? "block" : "none";
+        if (bloodRequestsEmptyMessage) {
+            bloodRequestsEmptyMessage.textContent = otherHospitalIds.length
+                ? `No requests are addressed to ${activeHospitalSession.hospitalId}. This browser has requests for another hospital ID: ${otherHospitalIds.join(", ")}. A request must use this exact hospital ID to appear here.`
+                : "Requests sent to this hospital from the same browser will appear here. Requests cannot sync across different browsers or devices without a shared server.";
+        }
+
+        requests.forEach(request => {
+            const card = document.createElement("article");
+            card.className = "blood-request-card";
+            const donorPhone = request.donorPhone ? String(request.donorPhone) : "";
+            const requesterPhone = request.requesterPhone ? String(request.requesterPhone) : "";
+            const donorPhoneLink = donorPhone
+                ? `<a href="tel:${escapeHTML(donorPhone.replace(/[^\d+]/g, ""))}">${escapeHTML(donorPhone)}</a>`
+                : "No donor phone saved; contact the requester for help.";
+            const requesterPhoneLink = requesterPhone
+                ? `<a href="tel:${escapeHTML(requesterPhone.replace(/[^\d+]/g, ""))}">${escapeHTML(requesterPhone)}</a>`
+                : "Not provided";
+            const statusText = request.status === "Contacted" ? "Contacted" : "New";
+            const statusClass = request.status === "Contacted" ? "eligible" : "scheduled";
+            card.innerHTML = `
+                <div class="blood-request-heading">
+                    <div>
+                        <h4>${escapeHTML(request.donorGroup || "Blood")} request for ${escapeHTML(request.donorName || "donor")}</h4>
+                        <span class="status-pill ${statusClass}">${statusText}</span>
+                    </div>
+                    <span class="blood-chip">${escapeHTML(request.donorGroup || "—")}</span>
+                </div>
+                <div class="blood-request-details">
+                    <p><strong>Requester:</strong> ${escapeHTML(request.requesterName || "Not provided")}</p>
+                    <p><strong>Call requester:</strong> ${requesterPhoneLink}</p>
+                    <p><strong>Contact donor:</strong> ${donorPhoneLink}</p>
+                    <p><strong>Units needed:</strong> ${Number(request.units) || 1}</p>
+                    <p><strong>Needed by:</strong> ${escapeHTML(request.neededBy || "Not specified")}</p>
+                    <p><strong>Donor location:</strong> ${escapeHTML(request.donorCity || "Not specified")}</p>
+                    ${request.details ? `<p><strong>Details:</strong> ${escapeHTML(request.details)}</p>` : ""}
+                </div>
+                ${request.status === "New" ? `<button type="button" class="action-btn success" data-action="mark-request-contacted" data-id="${escapeHTML(request.id)}">Mark as contacted</button>` : ""}
+            `;
+            bloodRequestsList.appendChild(card);
+        });
+    }
+
+    if (bloodRequestsList) {
+        bloodRequestsList.addEventListener("click", function (event) {
+            const button = event.target.closest("button[data-action='mark-request-contacted']");
+            if (!button) return;
+
+            const requests = loadData(KEYS.REQUESTS, []);
+            if (!Array.isArray(requests)) {
+                console.error("[Jeevan] Saved blood requests are not a list.");
+                return;
+            }
+            const request = requests.find(item => item.id === button.getAttribute("data-id"));
+            if (!request || request.hospitalId !== activeHospitalSession.hospitalId) return;
+            request.status = "Contacted";
+            request.contactedAt = new Date().toISOString();
+            if (saveData(KEYS.REQUESTS, requests)) renderBloodRequests();
+        });
+    }
 
     function renderInventoryTable() {
         if (!inventoryTableBody) return;
