@@ -1,51 +1,54 @@
-console.log("donate.js is connected");
 
-const registerBtn = document.getElementById("registerBtn");
-const message = document.getElementById("message");
 
-registerBtn.addEventListener("click", function () {
-  const name = document.getElementById("fullName").value.trim();
-  const age = Number(document.getElementById("age").value);
-  const email = document.getElementById("email").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const bloodGroup = document.getElementById("bloodGroup").value;
-  const city = document.getElementById("city").value.trim();
+const donorRegistrationForm = document.getElementById("donorRegistrationForm");
 
-  if (name === "") {
-    showMessage("Please enter your name.", "red");
-    return;
-  }
-  if (age < 18 || age > 65) {
-    showMessage("Age must be between 18 and 65.", "red");
-    return;
-  }
-  if (!email.includes("@") || !email.includes(".")) {
-    showMessage("Please enter a valid email.", "red");
-    return;
-  }
-  if (phone.length !== 10 || isNaN(phone)) {
-    showMessage("Phone number must be 10 digits.", "red");
-    return;
-  }
-  if (bloodGroup === "") {
-    showMessage("Please select your blood group.", "red");
-    return;
-  }
-  if (city === "") {
-    showMessage("Please enter your city.", "red");
-    return;
+if (donorRegistrationForm) {
+  const message = document.getElementById("message");
+
+  function showMessage(text, isError) {
+    message.textContent = text;
+    message.style.color = isError ? "#b91c1c" : "#166534";
   }
 
-  const donor = { name, age, email, phone, bloodGroup, city };
-  const donors = JSON.parse(localStorage.getItem("donors")) || [];
-  donors.push(donor);
-  localStorage.setItem("donors", JSON.stringify(donors));
+  donorRegistrationForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-  showMessage("Thank you, " + name + "! You are registered.", "green");
-  document.querySelector("form").reset();
-});
+    const name = document.getElementById("fullName").value.trim();
+    const age = Number(document.getElementById("age").value);
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const phone = document.getElementById("phone").value.trim();
+    const bloodGroup = document.getElementById("bloodGroup").value;
+    const city = document.getElementById("city").value.trim();
 
-function showMessage(text, color) {
-  message.textContent = text;
-  message.style.color = color;
+    if (age < 18) {
+      showMessage("You are not eligible to donate blood because donors must be at least 18 years old.", true);
+      return;
+    }
+    if (age > 65) {
+      showMessage("Donors must be 65 years old or younger. Please check with a donation center for guidance.", true);
+      return;
+    }
+    if (!name || !email || !bloodGroup || !city) {
+      showMessage("Please complete all fields before registering.", true);
+      return;
+    }
+    if (!/^\d{10}$/.test(phone)) {
+      showMessage("Please enter a valid 10-digit phone number.", true);
+      return;
+    }
+
+    try {
+      const savedDonors = localStorage.getItem("jeevanDonors") || localStorage.getItem("donors") || "[]";
+      const donors = JSON.parse(savedDonors);
+      if (!Array.isArray(donors)) throw new Error("Saved donor data must be a list.");
+
+      donors.push({ name, age, email, phone, group: bloodGroup, city });
+      localStorage.setItem("jeevanDonors", JSON.stringify(donors));
+      showMessage("Thank you, " + name + "! You are registered as a donor.", false);
+      donorRegistrationForm.reset();
+    } catch (error) {
+      console.error("[Jeevan] Could not save donor data.", error);
+      showMessage("Could not save your registration in this browser. Please check browser storage and try again.", true);
+    }
+  });
 }
