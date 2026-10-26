@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const available = document.createElement("p");
             available.className = "available";
             available.textContent = donor.isDemo
-                ? "Demo donor · fictional details"
+                ? "donor · fictional details"
                 : "Available donor";
             details.append(name, city, available);
 

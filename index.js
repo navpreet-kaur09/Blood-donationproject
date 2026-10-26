@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+function startPage() {
     const menuBtn = document.getElementById("menuBtn");
     const navbar = document.getElementById("navbar");
 
@@ -64,4 +64,10 @@ document.addEventListener("DOMContentLoaded", function () {
         emptyState.textContent = "Upcoming camps could not be loaded from this browser.";
         emptyState.hidden = false;
     }
-});
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startPage);
+} else {
+    startPage();
+}
